@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres:16
+    restart: always
+    container_name: lbpg
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: data
+    ports:
+      - "5555:5432"
