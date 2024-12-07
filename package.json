@@ -7,7 +7,8 @@
   "module": "nodenext",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deployCommands": "dotenvx run -- tsx ./src/deployCommands.ts"
+    "deployCommands": "dotenvx run -- tsx ./src/deployCommands.ts",
+    "dev": "dotenvx run -- tsx watch ./src/index.ts"
   },
   "keywords": [],
   "author": "",
