@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 
 const token = process.env.TOKEN!;
 
-const client = new Client({
+export const client = new Client({
   intents: [IntentsBitField.Flags.GuildMessages],
 });
 

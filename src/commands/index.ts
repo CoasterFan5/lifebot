@@ -3,6 +3,7 @@ import { LifebotCommand } from "../types/commandTypes";
 import { source } from "./source";
 import { balance } from "./balance";
 import { work } from "./work";
+import { invite } from "./invite";
 
 export const commands: {
   [key: string]: LifebotCommand;
@@ -11,4 +12,5 @@ export const commands: {
   source,
   balance,
   work,
+  invite,
 };
