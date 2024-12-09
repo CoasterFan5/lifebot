@@ -1,4 +1,4 @@
 export enum Colors {
-  GREEN = "#5AB748",
+  GREEN = "#2CFD6E",
   RED = "#e04141",
 }
