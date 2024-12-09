@@ -24,3 +24,12 @@ $: pnpm run dev
 ```
 
 Bot is now running. Any time you add a new command, you will need to re-run the deploy commands command.
+
+## Database changes
+If you change the database schema, you will need to run the following commands to generate a migration and apply it
+```bash
+$: npx drizzle-kit generate
+```
+```bash
+$: npx drizzle-kit migrate
+```

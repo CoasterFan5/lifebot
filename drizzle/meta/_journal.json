@@ -15,6 +15,13 @@
       "when": 1733605297459,
       "tag": "0001_ambiguous_wrecking_crew",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1733774829721,
+      "tag": "0002_icy_forgotten_one",
+      "breakpoints": true
     }
   ]
 }
