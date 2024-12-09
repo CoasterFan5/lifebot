@@ -10,7 +10,7 @@
     "deployCommands": "dotenvx run -- tsx ./src/deployCommands.ts",
     "dev": "dotenvx run -- tsx watch ./src/index.ts",
     "build": "tsx build.ts",
-    "prod": "pnpm run dbDeploy && node dist",
+    "prod": "pnpm run dbDeploy && pbpm run deployCommands && node dist",
     "dbDeploy": "npx drizzle-kit migrate"
   },
   "keywords": [],
