@@ -8,7 +8,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "deployCommands": "dotenvx run -- tsx ./src/deployCommands.ts",
-    "dev": "dotenvx run -- tsx watch ./src/index.ts"
+    "dev": "dotenvx run -- tsx watch ./src/index.ts",
+    "dbDeploy": "npx drizzle-kit migrate"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@types/pg": "^8.11.10",
     "drizzle-kit": "^0.29.1",
+    "esbuild": "0.24.0",
     "tsx": "^4.19.2"
   }
 }
