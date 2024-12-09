@@ -1,6 +1,7 @@
 import {
   CacheType,
   ChatInputCommandInteraction,
+  Client,
   MessageContextMenuCommandInteraction,
   SlashCommandBuilder,
   UserContextMenuCommandInteraction,
@@ -16,5 +17,6 @@ export type LifebotCommand = {
       | MessageContextMenuCommandInteraction<CacheType>
       | UserContextMenuCommandInteraction<CacheType>,
     user: typeof usersTable.$inferSelect,
+    clinet: Client<boolean>,
   ) => Promise<void>;
 };

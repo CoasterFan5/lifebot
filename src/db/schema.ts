@@ -11,6 +11,7 @@ export const usersTable = pgTable("users", {
   userId: varchar({ length: 256 }).notNull().unique(),
   balance: integer(),
   lastWork: timestamp(),
+  lastCrime: timestamp(),
 });
 
 export const petsTable = pgTable("pets", {

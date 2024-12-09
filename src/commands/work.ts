@@ -1,6 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import { LifebotCommand } from "../types/commandTypes";
-import { Colors } from "../utils/colors";
+import { Color } from "../utils/colors";
 import { db } from "../db";
 import { usersTable } from "../db/schema";
 import { eq, sql } from "drizzle-orm";
@@ -14,18 +14,14 @@ export const work: LifebotCommand = {
     .setDescription("Do a job to earn money!"),
   handler: async (interaction, user) => {
     const currentTime = Date.now();
+    const msSinceLastWork = currentTime - (user.lastWork?.getTime() || 0);
+    if (msSinceLastWork < WORK_COOLDOWN) {
+      const timeToWork = Math.ceil((WORK_COOLDOWN - msSinceLastWork) / 1000);
 
-    if (
-      user.lastWork &&
-      currentTime - WORK_COOLDOWN < user.lastWork?.getTime()
-    ) {
-      const timeToWork = Math.ceil(
-        (WORK_COOLDOWN - (currentTime - user.lastWork.getTime())) / 1000,
-      );
       await interaction.reply({
         embeds: [
           new EmbedBuilder()
-            .setColor(Colors.RED)
+            .setColor(Color.RED)
             .setTitle("Calm down!")
             .setDescription(`You can work again in ${timeToWork} seconds`),
         ],
@@ -39,18 +35,20 @@ export const work: LifebotCommand = {
       .set({ balance: amount + (user.balance || 0), lastWork: new Date() })
       .where(eq(usersTable.userId, user.userId));
 
-    const message = workMessages[
-      Math.floor(Math.random() * workMessages.length)
-    ].replaceAll("{}", `$${amount}`);
+    const messageIndex = Math.floor(Math.random() * workMessages.length);
+    const message = workMessages[messageIndex].replaceAll("{}", `$${amount}`);
 
     await interaction.reply({
       embeds: [
         new EmbedBuilder()
-          .setColor(Colors.GREEN)
+          .setColor(Color.GREEN)
           .setDescription(message)
           .setAuthor({
             name: interaction.user.displayName,
             iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setFooter({
+            text: `Mid: ${messageIndex}`,
           }),
       ],
     });

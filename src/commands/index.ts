@@ -4,6 +4,7 @@ import { source } from "./source";
 import { balance } from "./balance";
 import { work } from "./work";
 import { invite } from "./invite";
+import { crime } from "./crime";
 
 export const commands: {
   [key: string]: LifebotCommand;
@@ -13,4 +14,5 @@ export const commands: {
   balance,
   work,
   invite,
+  crime,
 };

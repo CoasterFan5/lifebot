@@ -1,6 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import { LifebotCommand } from "../types/commandTypes";
-import { Colors } from "../utils/colors";
+import { Color } from "../utils/colors";
 
 export const source: LifebotCommand = {
   command: new SlashCommandBuilder()
@@ -12,7 +12,7 @@ export const source: LifebotCommand = {
     embed.setDescription(
       "[Github Link](https://github.com/CoasterFan5/lifebot)",
     );
-    embed.setColor(Colors.GREEN);
+    embed.setColor(Color.GREEN);
 
     interaction.reply({
       embeds: [embed],

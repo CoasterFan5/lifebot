@@ -29,7 +29,7 @@ client.on("interactionCreate", async (interaction) => {
 
       const user = userSelectResult[0];
 
-      commands[interaction.commandName].handler(interaction, user);
+      commands[interaction.commandName].handler(interaction, user, client);
     } catch (e) {
       console.error(e);
       interaction.reply("Something went wrong...");

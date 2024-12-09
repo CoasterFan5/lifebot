@@ -4,7 +4,6 @@ import {
   Routes,
 } from "discord.js";
 import { commands } from "./commands";
-import { LifebotCommand } from "./types/commandTypes";
 
 const items: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
 for (const key in commands) {

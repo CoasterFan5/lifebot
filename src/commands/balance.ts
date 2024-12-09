@@ -1,6 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import { LifebotCommand } from "../types/commandTypes";
-import { Colors } from "../utils/colors";
+import { Color } from "../utils/colors";
 
 export const balance: LifebotCommand = {
   command: new SlashCommandBuilder()
@@ -9,7 +9,7 @@ export const balance: LifebotCommand = {
   handler: async (interaction, user) => {
     const embed = new EmbedBuilder()
       .setTitle("Balance")
-      .setColor(Colors.GREEN)
+      .setColor(Color.GREEN)
       .setDescription(`You have $${user.balance?.toString()}!`);
 
     interaction.reply({
