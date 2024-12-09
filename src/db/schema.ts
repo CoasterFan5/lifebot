@@ -1,11 +1,12 @@
-import { decimal, pgTable, varchar, boolean, integer as pgInteger } from "drizzle-orm/pg-core";
+import { decimal, pgTable, varchar, boolean, integer } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {
   userId: varchar({ length: 256 }).notNull().unique(),
-  balance: decimal(),
+  balance: integer(),
 });
+
 export const petsTable = pgTable("pets", {
-  id: pgInteger().notNull().unique(),
+  id: integer().notNull().unique(),
   ownerId: varchar({ length: 256 }).notNull().references(usersTable.id),
   petName: varchar({ length: 256 }).notNull(),
   species: varchar({ length: 256 }).notNull(), //Cat, Dog, etc.

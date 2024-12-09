@@ -6,6 +6,8 @@ import {
   UserContextMenuCommandInteraction,
 } from "discord.js";
 
+import { usersTable } from "../db/schema";
+
 export type LifebotCommand = {
   command: SlashCommandBuilder;
   handler: (
@@ -13,5 +15,6 @@ export type LifebotCommand = {
       | ChatInputCommandInteraction<CacheType>
       | MessageContextMenuCommandInteraction<CacheType>
       | UserContextMenuCommandInteraction<CacheType>,
+    user: typeof usersTable.$inferSelect,
   ) => Promise<void>;
 };
