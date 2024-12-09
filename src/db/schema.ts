@@ -1,13 +1,21 @@
-import { decimal, pgTable, varchar, boolean, integer } from "drizzle-orm/pg-core";
+import {
+  decimal,
+  pgTable,
+  varchar,
+  boolean,
+  integer,
+  timestamp,
+} from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {
   userId: varchar({ length: 256 }).notNull().unique(),
   balance: integer(),
+  lastWork: timestamp(),
 });
 
 export const petsTable = pgTable("pets", {
   id: integer().notNull().unique(),
-  ownerId: varchar({ length: 256 }).notNull().references(usersTable.id),
+  ownerId: varchar({ length: 256 }).notNull(),
   petName: varchar({ length: 256 }).notNull(),
   species: varchar({ length: 256 }).notNull(), //Cat, Dog, etc.
   age: decimal(),
@@ -19,5 +27,3 @@ export const petsTable = pgTable("pets", {
   lastPlayed: decimal(),
   lastPet: decimal(),
 });
-
-

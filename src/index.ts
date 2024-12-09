@@ -31,6 +31,7 @@ client.on("interactionCreate", async (interaction) => {
 
       commands[interaction.commandName].handler(interaction, user);
     } catch (e) {
+      console.error(e);
       interaction.reply("Something went wrong...");
     }
   }
