@@ -13,12 +13,23 @@ const client = new Client({
 client.on("interactionCreate", async (interaction) => {
   if (interaction.type == InteractionType.ApplicationCommand) {
     try {
-      const user = await db
+      let userSelectResult = await db
         .select()
         .from(usersTable)
         .where(eq(usersTable.userId, interaction.user.id));
+      if (userSelectResult.length < 1) {
+        userSelectResult = await db
+          .insert(usersTable)
+          .values({
+            userId: interaction.user.id,
+            balance: 0,
+          })
+          .returning();
+      }
 
-      commands[interaction.commandName].handler(interaction);
+      const user = userSelectResult[0];
+
+      commands[interaction.commandName].handler(interaction, user);
     } catch (e) {
       interaction.reply("Something went wrong...");
     }
