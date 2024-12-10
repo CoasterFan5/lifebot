@@ -6,8 +6,8 @@ import {
     integer,
     timestamp,
   } from "drizzle-orm/pg-core";
-import { db } from "../db";
-import { petsTable } from "./schema";
+import { db } from "./src/db";
+import { petsTable } from "./src/db/schema";
 
 const petNames = ["Bella", "Charlie", "Max", "Luna", "Lucy", "Cooper", "Bailey", "Daisy", "Sadie", "Molly"];
 const species = ["Cat", "Dog", "Bird", "Rabbit", "Hamster"];
