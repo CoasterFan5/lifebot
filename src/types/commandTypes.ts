@@ -3,6 +3,7 @@ import {
   ChatInputCommandInteraction,
   Client,
   MessageContextMenuCommandInteraction,
+  SharedSlashCommand,
   SlashCommandBuilder,
   UserContextMenuCommandInteraction,
 } from "discord.js";
@@ -10,7 +11,7 @@ import {
 import { usersTable } from "../db/schema";
 
 export type LifebotCommand = {
-  command: SlashCommandBuilder;
+  command: SharedSlashCommand;
   handler: (
     interaction:
       | ChatInputCommandInteraction<CacheType>
