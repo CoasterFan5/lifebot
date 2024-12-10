@@ -1,0 +1,1 @@
+ALTER TABLE "pets" ALTER COLUMN "ownerId" DROP NOT NULL;

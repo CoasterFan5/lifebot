@@ -16,7 +16,7 @@ export const usersTable = pgTable("users", {
 
 export const petsTable = pgTable("pets", {
   id: integer().notNull().unique(),
-  ownerId: varchar({ length: 256 }).notNull(),
+  ownerId: varchar({ length: 256 }),
   petName: varchar({ length: 256 }).notNull(),
   species: varchar({ length: 256 }).notNull(), //Cat, Dog, etc.
   age: decimal(),
