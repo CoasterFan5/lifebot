@@ -35,7 +35,7 @@ export const petstore: LifebotCommand = {
 			.setTitle("Pet Store")
 			.setColor(Color.GREEN)
 
-			.setDescription(`Here are the pets available for sale: \n`)
+			.setDescription("Here are the pets available for sale: \n")
 			.addFields(
 				{
 					name: "Pet Name",

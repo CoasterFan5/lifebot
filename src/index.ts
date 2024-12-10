@@ -13,8 +13,8 @@ import { usersTable } from "./db/schema";
 import { quickTimeEvents } from "./quickTimeEvents";
 import { Color } from "./utils/colors";
 
-const token = process.env.TOKEN!;
-const botDisabled = process.env.DISABLE_BOT?.toLowerCase() == "true";
+const token = process.env.TOKEN;
+const botDisabled = process.env.DISABLE_BOT?.toLowerCase() === "true";
 
 const disabledEmbed = new EmbedBuilder()
 	.setColor(Color.GREEN)

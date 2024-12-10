@@ -11,13 +11,13 @@ for (const key in commands) {
 	items.push(command.command.toJSON());
 }
 
-const rest = new REST().setToken(process.env.TOKEN!);
+const rest = new REST().setToken(process.env.TOKEN);
 
 if (process.env.DEPLOY_TO_GUILD) {
 	try {
 		await rest.put(
 			Routes.applicationGuildCommands(
-				process.env.APP_ID!,
+				process.env.APP_ID,
 				process.env.DEPLOY_TO_GUILD,
 			),
 			{
@@ -30,7 +30,7 @@ if (process.env.DEPLOY_TO_GUILD) {
 	}
 } else {
 	try {
-		await rest.put(Routes.applicationCommands(process.env.APP_ID!), {
+		await rest.put(Routes.applicationCommands(process.env.APP_ID), {
 			body: items,
 		});
 		console.log("Deployed globally");
