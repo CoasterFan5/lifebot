@@ -23,6 +23,9 @@ importers:
       pg:
         specifier: ^8.13.1
         version: 8.13.1
+      pnpm:
+        specifier: ^9.15.0
+        version: 9.15.0
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -982,6 +985,11 @@ packages:
     resolution: {integrity: sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg==}
     engines: {node: '>=12'}
 
+  pnpm@9.15.0:
+    resolution: {integrity: sha512-duI3l2CkMo7EQVgVvNZije5yevN3mqpMkU45RBVsQpmSGon5djge4QfUHxLPpLZmgcqccY8GaPoIMe1MbYulbA==}
+    engines: {node: '>=18.12'}
+    hasBin: true
+
   postgres-array@2.0.0:
     resolution: {integrity: sha512-VpZrUqU5A69eQyW2c5CA1jtLecCsN2U/bD6VilrFDWq5+5UIEVO7nazS3TEcHf1zuPYO/sqGvUvW62g86RXZuA==}
     engines: {node: '>=4'}
@@ -1770,6 +1778,8 @@ snapshots:
       split2: 4.2.0
 
   picomatch@4.0.2: {}
+
+  pnpm@9.15.0: {}
 
   postgres-array@2.0.0: {}
 
