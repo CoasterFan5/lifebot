@@ -14,7 +14,17 @@ to get a token and app id.
 You can use the default database url since it's already set up for docker
 
 ## Starting app
-First, deploy the commands to your discord bot.
+First, ensure everything is installed
+
+```bash
+$: pnpm install
+```
+If you don't have pnpm, use this to install it:
+```bash
+$: npm i -g pnpm
+```
+
+Then, deploy the commands to your discord bot.
 ```bash
 $: pnpm run deployCommands
 ```
