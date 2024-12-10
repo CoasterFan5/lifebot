@@ -43,3 +43,12 @@ $: npx drizzle-kit generate
 ```bash
 $: npx drizzle-kit migrate
 ```
+
+Note: During your initial setup, you will need to run all of these commands
+
+## Seeding database
+If you wish to add starting data to the database for testing purposes or otherwise, please do so in `dbInserts.ts`
+To run this file execute 
+```bash
+$: pnpm tsx  dbinserts.ts
+```
