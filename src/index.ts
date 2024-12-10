@@ -24,12 +24,20 @@ const disabledEmbed = new EmbedBuilder()
   );
 
 export const client = new Client({
-  intents: [GatewayIntentBits.GuildMessages, GatewayIntentBits.Guilds],
+  intents: [
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.MessageContent,
+  ],
 });
 
 // Quick time events
 client.on("messageCreate", async (message) => {
   if (botDisabled) {
+    return;
+  }
+
+  if (Math.floor(Math.random() * 250) > 0) {
     return;
   }
 
