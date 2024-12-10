@@ -1,17 +1,41 @@
-import { BitField, Client, IntentsBitField, InteractionType } from "discord.js";
+import {
+  BitField,
+  Client,
+  EmbedBuilder,
+  IntentsBitField,
+  InteractionType,
+} from "discord.js";
 import { commands } from "./commands";
 import { db } from "./db";
 import { usersTable } from "./db/schema";
 import { eq } from "drizzle-orm";
+import { Color } from "./utils/colors";
 
 const token = process.env.TOKEN!;
+const botDisabled = process.env.DISABLE_BOT?.toLowerCase() == "true";
+
+const disabledEmbed = new EmbedBuilder()
+  .setColor(Color.GREEN)
+  .setTitle("We'll be right back!")
+  .setDescription(
+    "Life bot seems to be disabled right now. It's most likely just an update, but if you must know whats going on, join the [support server](https://discord.gg/J5esKPaANg)",
+  );
 
 export const client = new Client({
   intents: [IntentsBitField.Flags.GuildMessages],
 });
 
 client.on("interactionCreate", async (interaction) => {
-  if (interaction.type == InteractionType.ApplicationCommand) {
+  if (botDisabled) {
+    if (interaction.isRepliable()) {
+      interaction.reply({
+        embeds: [disabledEmbed],
+      });
+    }
+    return;
+  }
+
+  if (interaction.isChatInputCommand()) {
     try {
       let userSelectResult = await db
         .select()
