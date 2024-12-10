@@ -2,6 +2,7 @@ import {
   BitField,
   Client,
   EmbedBuilder,
+  GatewayIntentBits,
   IntentsBitField,
   InteractionType,
 } from "discord.js";
@@ -10,6 +11,7 @@ import { db } from "./db";
 import { usersTable } from "./db/schema";
 import { eq } from "drizzle-orm";
 import { Color } from "./utils/colors";
+import { quickTimeEvents } from "./quickTimeEvents";
 
 const token = process.env.TOKEN!;
 const botDisabled = process.env.DISABLE_BOT?.toLowerCase() == "true";
@@ -22,7 +24,22 @@ const disabledEmbed = new EmbedBuilder()
   );
 
 export const client = new Client({
-  intents: [IntentsBitField.Flags.GuildMessages],
+  intents: [GatewayIntentBits.GuildMessages, GatewayIntentBits.Guilds],
+});
+
+// Quick time events
+client.on("messageCreate", async (message) => {
+  if (botDisabled) {
+    return;
+  }
+
+  if (message.author.bot) {
+    return;
+  }
+
+  const event =
+    quickTimeEvents[Math.floor(Math.random() * quickTimeEvents.length)];
+  event(message);
 });
 
 client.on("interactionCreate", async (interaction) => {
