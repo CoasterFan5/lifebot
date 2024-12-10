@@ -6,6 +6,7 @@ import { work } from "./work";
 import { invite } from "./invite";
 import { crime } from "./crime";
 import { pay } from "./pay";
+import { petstore } from "./petstore";
 
 export const commands: {
   [key: string]: LifebotCommand;
@@ -17,4 +18,5 @@ export const commands: {
   invite,
   crime,
   pay,
+  petstore,
 };
