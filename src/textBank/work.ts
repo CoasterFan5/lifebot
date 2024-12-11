@@ -11,5 +11,8 @@ export const workMessages = [
 	"You worked at Coaster Land and made {}",
 	"You took up a shift at the local fast food place and earned {}",
 	"You won a hot dog eating contest and the {} grand prize!",
-	"You worked as on a weird discord bot that lets people have esex, + {}",
+	"You worked as on a weird discord bot that lets them touch grass, + {}",
+	"You touched grass and got paid {}",
+	"You took a shower! + {} (thank you)",
+	
 ];

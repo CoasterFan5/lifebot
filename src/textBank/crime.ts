@@ -9,6 +9,7 @@ export const goodCrime = [
 	"Stole a wedding ring while you were the best man and pawned it for {}",
 	"Did wire fraud and made {}",
 	"Stole {} from a cashier at Coaster Land",
+	"Created a scam minecraft server + {}",
 ];
 
 export const badCrimes = [
@@ -20,4 +21,6 @@ export const badCrimes = [
 	"You went to Coaster Land to steal money, but actually had a great time and are now down {}",
 	"Did you know that you just lost {} by being a bad thief?",
 	"You lost {} while dropshipping illegal substances",
+	"Tried to hack LifeBot but got caught and sued for {}",
+	"Tried to fight Superman and lost, now you owe {} to the hospital",
 ];

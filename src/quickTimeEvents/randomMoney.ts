@@ -1,5 +1,5 @@
 import { EmbedBuilder } from "discord.js";
-import { sql } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { db } from "../db";
 import { usersTable } from "../db/schema";
 import type { QuickTimeEvent } from "../types/quickTimeEventFunction";
@@ -9,6 +9,13 @@ export const randomMoney: QuickTimeEvent = async (message) => {
 	const author = message.author;
 
 	const amount = Math.floor(Math.random() * 9) * 100 + 100;
+
+	// let lastEvent = await db
+	// 	.select({ lastQuickEvent: usersTable.lastQuickEvent })
+	// 	.from(usersTable)
+	// 	.where(eq(usersTable.userId, author.id))
+
+	// console.log(lastEvent);
 
 	await db
 		.insert(usersTable)

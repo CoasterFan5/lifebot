@@ -40,17 +40,17 @@ export const petstore: LifebotCommand = {
 				{
 					name: "Pet Name",
 					value: results.map((result) => result.petName).join("\n"),
-					inline: true,
+					inline: false,
 				},
 				{
 					name: "Species",
 					value: results.map((result) => result.species).join("\n"),
-					inline: true,
+					inline: false,
 				},
 				{
 					name: "Price",
 					value: results.map((result) => result.price).join("\n"),
-					inline: true,
+					inline: false,
 				},
 			);
 
