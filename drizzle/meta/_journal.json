@@ -50,6 +50,13 @@
       "when": 1733870460389,
       "tag": "0006_blushing_mephisto",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1733953288977,
+      "tag": "0007_past_bug",
+      "breakpoints": true
     }
   ]
 }

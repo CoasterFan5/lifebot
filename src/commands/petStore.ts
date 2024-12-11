@@ -4,7 +4,7 @@ import {
 	SlashCommandIntegerOption,
 	SlashCommandUserOption,
 } from "discord.js";
-import { eq, lt } from "drizzle-orm";
+import { eq, lt, sql } from "drizzle-orm";
 import { db } from "../db";
 import { petsTable } from "../db/schema";
 import type { LifebotCommand } from "../types/commandTypes";
@@ -15,8 +15,7 @@ export const petstore: LifebotCommand = {
 		.setName("petstore")
 		.setDescription("View the pet store"),
 	handler: async (interaction) => {
-		const query =
-			"Select petName, species, age, price from pets where isSold = false";
+		
 		const results = await db
 			.select({
 				id: petsTable.id,
@@ -28,30 +27,18 @@ export const petstore: LifebotCommand = {
 			})
 			.from(petsTable)
 			.where(eq(petsTable.isSold, false))
-			.limit(10)
+			.limit(5)
+			.orderBy(sql`RANDOM()`)
 			.execute();
-		console.log(results);
 		const embed = new EmbedBuilder()
 			.setTitle("Pet Store")
 			.setColor(Color.GREEN)
-
 			.setDescription("Here are the pets available for sale: \n")
 			.addFields(
-				{
-					name: "Pet Name",
-					value: results.map((result) => result.petName).join("\n"),
-					inline: false,
-				},
-				{
-					name: "Species",
-					value: results.map((result) => result.species).join("\n"),
-					inline: false,
-				},
-				{
-					name: "Price",
-					value: results.map((result) => result.price).join("\n"),
-					inline: false,
-				},
+				results.map(result => ({
+					name: `${result.petName} :${result.species.toLowerCase()}:`,
+					value: `ID: ${result.id}\nAge: ${result.age}\nPrice: ${result.price}\n`,
+				}))
 			);
 
 		interaction.reply({

@@ -29,3 +29,9 @@ export const petsTable = pgTable("pets", {
 	lastPlayed: decimal(),
 	lastPet: decimal(),
 });
+
+export const userPetsTable = pgTable("user_pets", {
+	id: integer().notNull().unique(),
+	userId: varchar({ length: 256 }).notNull(),
+	petId: integer().notNull(),
+});

@@ -8,19 +8,9 @@ import {
 } from "drizzle-orm/pg-core";
 import { db } from "./src/db";
 import { petsTable } from "./src/db/schema";
+import { petnames } from "./src/textBank/petNames";
 
-const petNames = [
-	"Bella",
-	"Charlie",
-	"Max",
-	"Luna",
-	"Lucy",
-	"Cooper",
-	"Bailey",
-	"Daisy",
-	"Sadie",
-	"Molly",
-];
+
 const species = ["Cat", "Dog", "Bird", "Rabbit", "Hamster"];
 const moods = ["Happy", "Sad", "Excited", "Calm", "Anxious"];
 
@@ -35,7 +25,7 @@ function getRandomDecimal(min: number, max: number) {
 const petData = Array.from({ length: 200 }, (_, id) => ({
 	id: id + 1,
 	ownerId: `owner${id + 1}`,
-	petName: getRandomElement(petNames),
+	petName: getRandomElement(petnames),
 	species: getRandomElement(species),
 	age: getRandomDecimal(0.1, 15),
 	price: getRandomDecimal(50, 500),

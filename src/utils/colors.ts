@@ -13,3 +13,15 @@ export enum Color {
 	DARK_GRAY = "#A9A9A9",
 	GOLD = "#FFD700",
 }
+
+export const randomColor = (): Color => {
+	const colors = Object.values(Color);
+	return colors[Math.floor(Math.random() * colors.length)];
+};
+
+export const randomBritghtColor = (): Color => {
+	const colors = [Color.RED, Color.BLUE, Color.YELLOW, Color.PURPLE, Color.ORANGE, Color.PINK];
+	let color = colors[Math.floor(Math.random() * colors.length)];
+	console.log("returning color", color);
+	return color;
+};
