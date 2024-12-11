@@ -27,6 +27,10 @@ export const rank: LifebotCommand = {
         .select()
         .from(usersTable)
         .where(eq(usersTable.userId, otherUser.id));
+      if (!dbUser[0]) {
+        interaction.reply("This user is not ranked.");
+        return;
+      }
       if (dbUser[0]) {
         userToCheck = dbUser[0];
       }
