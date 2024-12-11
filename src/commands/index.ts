@@ -5,18 +5,20 @@ import { invite } from "./invite";
 import { pay } from "./pay";
 import { petstore } from "./petStore";
 import { ping } from "./ping";
+import { rank } from "./rank";
 import { source } from "./source";
 import { work } from "./work";
 
 export const commands: {
-	[key: string]: LifebotCommand;
+  [key: string]: LifebotCommand;
 } = {
-	ping,
-	source,
-	balance,
-	work,
-	invite,
-	crime,
-	pay,
-	petstore,
+  ping,
+  source,
+  balance,
+  work,
+  invite,
+  crime,
+  pay,
+  petstore,
+  rank,
 };
