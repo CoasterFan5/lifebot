@@ -5,14 +5,14 @@ import {Color} from "../utils/colors";
 import {EmbedBuilder, SlashCommandBuilder, SlashCommandNumberOption} from "discord.js";
 import {eq, and} from "drizzle-orm";
 
-export const invintory: LifebotCommand = {
+export const inventory: LifebotCommand = {
     command: new SlashCommandBuilder()
-        .setName("invintory")
-        .setDescription("View your invintory")
+        .setName("inventory")
+        .setDescription("View your inventory")
         .addNumberOption(
             new SlashCommandNumberOption()
                 .setName("page")
-                .setDescription("The page number of your invintory")
+                .setDescription("The page number of your inventory")
                 .setRequired(false),
         ),
     handler: async (interaction, user) => {
