@@ -57,6 +57,13 @@
       "when": 1733953288977,
       "tag": "0007_past_bug",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1734018662739,
+      "tag": "0008_sturdy_joystick",
+      "breakpoints": true
     }
   ]
 }
