@@ -7,8 +7,9 @@
   "module": "nodenext",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deployCommands": "dotenvx run -- tsx ./src/deployCommands.ts",
-    "dev": "dotenvx run -- tsx watch ./src/index.ts",
+    "deployCommands": "dotenvx run -- tsx ./src/bot/deployCommands.ts",
+    "dev": "pnpm run dev",
+    "bot:dev": "dotenvx run -- tsx watch ./src/bot/index.ts",
     "format": "biome check --write ./src",
     "build": "tsx build.ts",
     "bot:prod": "pnpm run dbDeploy && pnpm run deployCommands && node dist/bot",
