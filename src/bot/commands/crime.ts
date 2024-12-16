@@ -1,6 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
-import { db } from "../db";
-import { usersTable } from "../db/schema";
+import { db } from "../../db";
+import { usersTable } from "../../db/schema";
 import { badCrimes, goodCrime } from "../textBank/crime";
 import type { LifebotCommand } from "../types/commandTypes";
 import { Color } from "../utils/colors";

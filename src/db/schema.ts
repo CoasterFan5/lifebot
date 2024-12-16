@@ -12,7 +12,7 @@ export const usersTable = pgTable("users", {
 	balance: integer(),
 	lastWork: timestamp(),
 	lastCrime: timestamp(),
-  // lastQuickEvent: timestamp(),
+	// lastQuickEvent: timestamp(),
 });
 
 export const petsTable = pgTable("pets", {

@@ -1,7 +1,7 @@
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import { eq, sql } from "drizzle-orm";
-import { db } from "../db";
-import { usersTable } from "../db/schema";
+import { db } from "../../db";
+import { usersTable } from "../../db/schema";
 import { workMessages } from "../textBank/work";
 import type { LifebotCommand } from "../types/commandTypes";
 import { Color } from "../utils/colors";

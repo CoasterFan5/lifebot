@@ -14,5 +14,4 @@ export const workMessages = [
 	"You worked as on a weird discord bot that lets them touch grass, + {}",
 	"You touched grass and got paid {}",
 	"You took a shower! + {} (thank you)",
-	
 ];

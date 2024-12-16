@@ -1,7 +1,7 @@
 import { EmbedBuilder } from "discord.js";
 import { sql } from "drizzle-orm";
-import { db } from "../db";
-import { usersTable } from "../db/schema";
+import { db } from "../../db";
+import { usersTable } from "../../db/schema";
 import type { QuickTimeEvent } from "../types/quickTimeEventFunction";
 import { Color } from "../utils/colors";
 import { randomWords } from "./textBank/wordList";

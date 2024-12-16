@@ -7,9 +7,9 @@ import {
 	InteractionType,
 } from "discord.js";
 import { eq } from "drizzle-orm";
+import { db } from "../db";
+import { usersTable } from "../db/schema";
 import { commands } from "./commands";
-import { db } from "./db";
-import { usersTable } from "./db/schema";
 import { quickTimeEvents } from "./quickTimeEvents";
 import { Color } from "./utils/colors";
 

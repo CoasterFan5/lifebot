@@ -20,8 +20,15 @@ export const randomColor = (): Color => {
 };
 
 export const randomBritghtColor = (): Color => {
-	const colors = [Color.RED, Color.BLUE, Color.YELLOW, Color.PURPLE, Color.ORANGE, Color.PINK];
-	let color = colors[Math.floor(Math.random() * colors.length)];
+	const colors = [
+		Color.RED,
+		Color.BLUE,
+		Color.YELLOW,
+		Color.PURPLE,
+		Color.ORANGE,
+		Color.PINK,
+	];
+	const color = colors[Math.floor(Math.random() * colors.length)];
 	console.log("returning color", color);
 	return color;
 };

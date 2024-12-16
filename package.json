@@ -11,7 +11,7 @@
     "dev": "dotenvx run -- tsx watch ./src/index.ts",
     "format": "biome check --write ./src",
     "build": "tsx build.ts",
-    "prod": "pnpm run dbDeploy && pnpm run deployCommands && node dist",
+    "bot:prod": "pnpm run dbDeploy && pnpm run deployCommands && node dist/bot",
     "dbDeploy": "npx drizzle-kit migrate"
   },
   "keywords": [],

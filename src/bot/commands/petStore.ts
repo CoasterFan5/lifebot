@@ -5,8 +5,8 @@ import {
 	SlashCommandUserOption,
 } from "discord.js";
 import { eq, lt, sql } from "drizzle-orm";
-import { db } from "../db";
-import { petsTable } from "../db/schema";
+import { db } from "../../db";
+import { petsTable } from "../../db/schema";
 import type { LifebotCommand } from "../types/commandTypes";
 import { Color } from "../utils/colors";
 
@@ -15,7 +15,6 @@ export const petstore: LifebotCommand = {
 		.setName("petstore")
 		.setDescription("View the pet store"),
 	handler: async (interaction) => {
-		
 		const results = await db
 			.select({
 				id: petsTable.id,
@@ -35,10 +34,10 @@ export const petstore: LifebotCommand = {
 			.setColor(Color.GREEN)
 			.setDescription("Here are the pets available for sale: \n")
 			.addFields(
-				results.map(result => ({
+				results.map((result) => ({
 					name: `${result.petName} :${result.species.toLowerCase()}:`,
 					value: `ID: ${result.id}\nAge: ${result.age}\nPrice: ${result.price}\n`,
-				}))
+				})),
 			);
 
 		interaction.reply({

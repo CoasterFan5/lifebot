@@ -6,8 +6,8 @@ import {
 	SlashCommandUserOption,
 } from "discord.js";
 import { eq, sql } from "drizzle-orm";
-import { db } from "../db";
-import { usersTable } from "../db/schema";
+import { db } from "../../db";
+import { usersTable } from "../../db/schema";
 import type { LifebotCommand } from "../types/commandTypes";
 import { Color } from "../utils/colors";
 import { getPersonalizedEmbed } from "../utils/personalizedEmbed";
