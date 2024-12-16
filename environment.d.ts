@@ -6,6 +6,7 @@ declare global {
       APP_ID: string;
       DEPLOY_TO_GUILD: string | undefined;
       DISABLE_BOT: "true" | "false";
+      API_KEY: string;
     }
   }
 }

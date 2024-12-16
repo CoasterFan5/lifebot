@@ -8,8 +8,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "deployCommands": "dotenvx run -- tsx ./src/bot/deployCommands.ts",
-    "dev": "pnpm run dev",
+    "dev": "pnpm run bot:dev & pnpm run web:dev",
     "bot:dev": "dotenvx run -- tsx watch ./src/bot/index.ts",
+    "web:dev": "dotenvx run -- tsx watch ./src/web/index.ts",
     "format": "biome check --write ./src",
     "build": "tsx build.ts",
     "bot:prod": "pnpm run dbDeploy && pnpm run deployCommands && node dist/bot",
@@ -23,9 +24,12 @@
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.37.0",
+    "fastify": "^5.2.0",
+    "fastify-type-provider-zod": "^4.0.2",
     "pg": "^8.13.1",
     "pnpm": "^9.15.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
