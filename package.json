@@ -11,6 +11,7 @@
     "dev": "pnpm run bot:dev & pnpm run web:dev",
     "bot:dev": "dotenvx run -- tsx watch ./src/bot/index.ts",
     "web:dev": "dotenvx run -- tsx watch ./src/web/index.ts",
+    "bot:build": "tsx ./src/bot/build.ts",
     "format": "biome check --write ./src",
     "build": "tsx build.ts",
     "bot:prod": "pnpm run dbDeploy && pnpm run deployCommands && node dist/bot",
