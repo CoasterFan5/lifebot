@@ -1,10 +1,10 @@
 import esbuild from "esbuild";
 
 await esbuild.build({
-  entryPoints: ["./src//bot/index.ts"],
+  entryPoints: ["./src/index.ts"],
   bundle: true,
   minify: false,
-  outdir: "./dist/bot",
+  outdir: "./dist/full",
   platform: "node",
   format: "esm",
   target: "esnext",
