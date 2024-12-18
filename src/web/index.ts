@@ -47,6 +47,49 @@ app.withTypeProvider<ZodTypeProvider>().route({
   },
 });
 
+app.withTypeProvider<ZodTypeProvider>().route({
+  method: "GET",
+  url: "/api/v1/:key/user/:userId/balance/rm/:amount",
+  // Define your schema
+  schema: {
+    params: z.object({
+      key: z.string(),
+      userId: z.string(),
+      amount: z.coerce.number(),
+    }),
+  },
+  preHandler: async (req, res) => {
+    if (req.params.key !== api_key) {
+      res.code(401).send({ message: "Invalid Key" });
+    }
+  },
+  handler: async (req, res) => {
+    const { userId } = req.params;
+    const user = await db
+      .select()
+      .from(usersTable)
+      .where(eq(usersTable.userId, userId));
+
+    if (user.length < 1) {
+      return res.code(401).send("No user");
+    }
+
+    const newBal = (user[0].balance || 0) - req.params.amount;
+    if (newBal < 0) {
+      return res.code(401).send("Invalid");
+    }
+
+    await db
+      .update(usersTable)
+      .set({
+        balance: newBal,
+      })
+      .where(eq(usersTable.userId, userId));
+
+    res.send(newBal);
+  },
+});
+
 app.listen(
   {
     host: "::",
