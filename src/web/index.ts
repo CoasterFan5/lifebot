@@ -19,7 +19,7 @@ app.setSerializerCompiler(serializerCompiler);
 
 app.withTypeProvider<ZodTypeProvider>().route({
   method: "GET",
-  url: "/api/v1/:key/user/:userId",
+  url: "/api/v1/:key/user/:userId/balance",
   // Define your schema
   schema: {
     params: z.object({
@@ -40,10 +40,10 @@ app.withTypeProvider<ZodTypeProvider>().route({
       .where(eq(usersTable.userId, userId));
 
     if (user.length < 1) {
-      return res.code(401).send({ message: "No user" });
+      return res.code(401).send(0);
     }
 
-    res.send(user[0]);
+    res.send(user[0].balance);
   },
 });
 
