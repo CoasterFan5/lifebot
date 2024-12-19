@@ -71,12 +71,12 @@ app.withTypeProvider<ZodTypeProvider>().route({
       .where(eq(usersTable.userId, userId));
 
     if (user.length < 1) {
-      return res.code(401).send("No user");
+      return res.code(200).send("Invalid");
     }
 
     const newBal = (user[0].balance || 0) - req.params.amount;
     if (newBal < 0) {
-      return res.code(401).send("Invalid");
+      return res.code(200).send("Invalid");
     }
 
     await db
