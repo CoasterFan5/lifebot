@@ -23,7 +23,7 @@ const disabledEmbed = new EmbedBuilder()
   .setColor(Color.GREEN)
   .setTitle("We'll be right back!")
   .setDescription(
-    "Life bot seems to be disabled right now. It's most likely just an update, but if you must know whats going on, join the [support server](https://discord.gg/J5esKPaANg)",
+    "Life bot seems to be disabled right now. This is not good. If you must know whats going on, join the [support server](https://discord.gg/J5esKPaANg)",
   );
 
 export const client = new Client({
