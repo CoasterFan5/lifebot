@@ -14,7 +14,7 @@ const skillList = [
 
 type SkillName = (typeof skillList)[number];
 
-type JobTier = {
+export type JobTier = {
   title: string;
   basePay: number;
   maxPay: number;
@@ -22,9 +22,11 @@ type JobTier = {
   xpGrants: Partial<Record<SkillName, number>>;
 };
 
+export type JobDetails = {
+  companies: string[];
+  tiers: JobTier[];
+};
+
 export type JobList = {
-  [key: string]: {
-    companies: string[];
-    tiers: JobTier[];
-  };
+  [key: string]: JobDetails;
 };

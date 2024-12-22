@@ -1,5 +1,13 @@
 import { SlashCommandBuilder, SlashCommandSubcommandBuilder } from "discord.js";
-import type { LifebotCommand } from "../../types/commandTypes";
+import type {
+  LifebotCommand,
+  LifebotCommandHandler,
+} from "../../types/commandTypes";
+import { search } from "./search";
+
+const subCommandHandlers: { [key: string]: LifebotCommandHandler } = {
+  search: search,
+};
 
 export const job: LifebotCommand = {
   command: new SlashCommandBuilder()
@@ -22,7 +30,11 @@ export const job: LifebotCommand = {
     ),
   handler: async (interaction, user, client) => {
     const subCommand = interaction.options.getSubcommand(true);
+    console.log(subCommand);
 
     // handle sub command
+    try {
+      subCommandHandlers[subCommand](interaction, user, client);
+    } catch (e) {}
   },
 };
