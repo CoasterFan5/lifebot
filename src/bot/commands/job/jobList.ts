@@ -1,0 +1,122 @@
+import type { JobList } from "../../types/jobList";
+
+export const jobPaths: JobList = {
+  supermarket: {
+    companies: ["Doormart", "Goal", "Croaker", "SVC", "Teeter Faris"],
+    tiers: [
+      {
+        title: "Bagger",
+        basePay: 1000,
+        maxPay: 2000,
+        requirements: {},
+        xpGrants: {
+          reputation: 1,
+          timeManagement: 1,
+          workEthic: 1,
+        },
+      },
+      {
+        title: "Cashier",
+        basePay: 1500,
+        maxPay: 2500,
+        requirements: {
+          reputation: 10,
+          timeManagement: 10,
+          workEthic: 10,
+        },
+        xpGrants: {
+          reputation: 1,
+          timeManagement: 1,
+          workEthic: 1,
+          customerService: 1,
+        },
+      },
+      {
+        title: "Stock Clerk",
+        basePay: 2000,
+        maxPay: 3000,
+        requirements: {
+          reputation: 25,
+          timeManagement: 25,
+          workEthic: 25,
+          customerService: 10,
+        },
+        xpGrants: {
+          reputation: 1,
+          timeManagement: 2,
+          workEthic: 2,
+          customerService: 2,
+          organization: 1,
+          technicalSkills: 1,
+        },
+      },
+      {
+        title: "Assistant Store Manager",
+        basePay: 3000,
+        maxPay: 4000,
+        requirements: {
+          reputation: 50,
+          timeManagement: 50,
+          workEthic: 50,
+          customerService: 25,
+          organization: 10,
+          technicalSkills: 10,
+        },
+        xpGrants: {
+          reputation: 1,
+          timeManagement: 2,
+          workEthic: 2,
+          customerService: 2,
+          organization: 2,
+          technicalSkills: 1,
+          leadership: 1,
+        },
+      },
+      {
+        title: "Store Manager",
+        basePay: 7500,
+        maxPay: 10000,
+        requirements: {
+          reputation: 100,
+          timeManagement: 100,
+          workEthic: 100,
+          customerService: 50,
+          organization: 25,
+          technicalSkills: 25,
+          leadership: 10,
+        },
+        xpGrants: {
+          reputation: 1,
+          timeManagement: 2,
+          workEthic: 2,
+          customerService: 2,
+          organization: 2,
+          technicalSkills: 1,
+          leadership: 1,
+        },
+      },
+      {
+        title: "Regional Manager",
+        basePay: 10_000,
+        maxPay: 15_000,
+        requirements: {
+          reputation: 250,
+          timeManagement: 250,
+          workEthic: 250,
+          organization: 1000,
+          technicalSkills: 250,
+          leadership: 1000,
+        },
+        xpGrants: {
+          reputation: 1,
+          timeManagement: 2,
+          workEthic: 2,
+          customerService: 2,
+          organization: 2,
+          technicalSkills: 2,
+          leadership: 2,
+        },
+      },
+    ],
+  },
+};
