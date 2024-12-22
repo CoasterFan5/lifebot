@@ -3,6 +3,7 @@ import { balance } from "./balance";
 import { buypet } from "./buyPet";
 import { crime } from "./crime";
 import { invite } from "./invite";
+import { job } from "./job/job";
 import { pay } from "./pay";
 import { petstore } from "./petStore";
 import { pets } from "./pets";
@@ -12,14 +13,15 @@ import { source } from "./source";
 import { work } from "./work";
 
 export const commands: {
-	[key: string]: LifebotCommand;
+  [key: string]: LifebotCommand;
 } = {
-	ping,
-	source,
-	balance,
-	work,
-	invite,
-	crime,
-	pay,
-	rank,
+  ping,
+  source,
+  balance,
+  work,
+  invite,
+  crime,
+  pay,
+  rank,
+  job,
 };
