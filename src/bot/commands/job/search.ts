@@ -46,8 +46,8 @@ export const search: LifebotCommandHandler = async (
     }
 
     embed.addFields({
-      name: `${jobDesc.title} - ${companyName}`,
-      value: `Starting Pay: ${jobDesc.basePay}\nRequirements: ${reqString.join("\n")}`,
+      name: `${jobDesc.title}`,
+      value: `Company: ${companyName}\nStarting Pay: ${jobDesc.basePay}\nRequirements: ${reqString.join("\n")}`,
       inline: true,
     });
   }
