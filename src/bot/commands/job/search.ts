@@ -68,7 +68,7 @@ export const search: LifebotCommandHandler = async (
 
     row.addComponents(
       new ButtonBuilder()
-        .setLabel(`Appy for job ${i + 1}`)
+        .setLabel(`Apply for job ${i + 1}`)
         .setCustomId(i.toString())
         .setStyle(ButtonStyle.Success),
     );
