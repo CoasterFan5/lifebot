@@ -1,4 +1,9 @@
-import { EmbedBuilder } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 import type { LifebotCommandHandler } from "../../types/commandTypes";
 import type { JobTier } from "../../types/jobList";
 import { jobPaths } from "./jobList";
@@ -14,7 +19,9 @@ export const search: LifebotCommandHandler = async (
   const embed = new EmbedBuilder()
     .setTitle("Job Search")
     .setDescription("It's time to get employed!")
-    .setColor(Color.GREEN);
+    .setColor(Color.GREEN)
+    .setFooter({ text: "This will time out in 60 seconds" });
+  const row = new ActionRowBuilder<ButtonBuilder>();
 
   const shownJobList: {
     companyName: string;
@@ -50,9 +57,17 @@ export const search: LifebotCommandHandler = async (
       value: `Company: ${companyName}\nStarting Pay: ${jobDesc.basePay}\nRequirements: ${reqString.join("\n")}`,
       inline: true,
     });
+
+    row.addComponents(
+      new ButtonBuilder()
+        .setLabel(`Appy for job ${i + 1}`)
+        .setCustomId(i.toString())
+        .setStyle(ButtonStyle.Success),
+    );
   }
 
-  interaction.reply({
+  await interaction.reply({
     embeds: [embed],
+    components: [row],
   });
 };
