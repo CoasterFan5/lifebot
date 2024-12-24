@@ -13,15 +13,15 @@ import { source } from "./source";
 import { work } from "./work";
 
 export const commands: {
-  [key: string]: LifebotCommand;
+	[key: string]: LifebotCommand;
 } = {
-  ping,
-  source,
-  balance,
-  work,
-  invite,
-  crime,
-  pay,
-  rank,
-  job,
+	ping,
+	source,
+	balance,
+	work,
+	invite,
+	crime,
+	pay,
+	rank,
+	job,
 };
