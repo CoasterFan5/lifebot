@@ -90,6 +90,15 @@ export const search: LifebotCommandHandler = async (
           embeds: [expiredEmbed],
           components: [],
         });
+      })
+      .then((newInteraction) => {
+        if (!newInteraction || !newInteraction.isButton()) {
+          return;
+        }
+
+        interaction.deleteReply();
+
+        newInteraction.reply("a");
       });
   } catch (e) {}
 };
