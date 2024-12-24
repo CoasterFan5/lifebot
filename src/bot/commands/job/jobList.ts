@@ -1,4 +1,4 @@
-import type { JobList } from "../../types/jobList";
+import type { JobList } from "../../types/jobs";
 
 /*
 This is a long list of jobs, Don't try and use this for reference, use this google sheet:

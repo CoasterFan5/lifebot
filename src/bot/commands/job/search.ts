@@ -5,15 +5,28 @@ import {
   EmbedBuilder,
 } from "discord.js";
 import type { LifebotCommandHandler } from "../../types/commandTypes";
-import type { JobTier } from "../../types/jobList";
+import type { JobTier } from "../../types/jobs";
 import { camelCaseToTitle } from "../../utils/camelCaseToTitle";
 import { Color } from "../../utils/colors";
 import { jobPaths } from "./jobList";
+import { checkUserRequirements } from "./jobUtils/checkUserRequirements";
 
 const expiredEmbed = new EmbedBuilder()
   .setTitle("Expired")
   .setDescription("Job search expired")
   .setColor(Color.RED);
+
+const unqualifiedEmbed = new EmbedBuilder()
+  .setTitle("Not qualified")
+  .setDescription("You don't have the correct skills for this job.")
+  .setColor(Color.RED);
+
+const jobAppliedForEmbed = new EmbedBuilder()
+  .setTitle("Job applied for!")
+  .setDescription(
+    "You have already applied for a job, so we cleaned up this job search for you. Hope you got the job...",
+  )
+  .setColor(Color.ORANGE);
 
 export const search: LifebotCommandHandler = async (
   interaction,
@@ -82,7 +95,7 @@ export const search: LifebotCommandHandler = async (
   try {
     sent
       .awaitMessageComponent({
-        filter: (i) => i.user.id === interaction.user.id,
+        filter: (i) => i.isButton() && i.user.id === interaction.user.id,
         time: 60_000,
       })
       .catch((e) => {
@@ -93,12 +106,29 @@ export const search: LifebotCommandHandler = async (
       })
       .then((newInteraction) => {
         if (!newInteraction || !newInteraction.isButton()) {
+          console.log("Exiting Early");
           return;
         }
 
-        interaction.deleteReply();
+        const jobNumber = Number.parseInt(newInteraction.customId);
+        const jobDetails = shownJobList[jobNumber];
 
-        newInteraction.reply("a");
+        // remove job options
+        interaction.editReply({
+          embeds: [jobAppliedForEmbed],
+        });
+
+        if (!checkUserRequirements(user, jobDetails.jobDesc.requirements)) {
+          newInteraction.reply({
+            embeds: [unqualifiedEmbed],
+          });
+          return;
+        }
+        newInteraction.reply(
+          `\`\`\`${JSON.stringify(jobDetails, null, 4)}\`\`\``,
+        );
       });
-  } catch (e) {}
+  } catch (e) {
+    console.warn(e);
+  }
 };
