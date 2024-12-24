@@ -18,7 +18,7 @@ Leadership: ${user.leadership}xp
 Time Management: ${user.timeManagement}xp
 Teamwork: ${user.teamwork}xp
 Work Ethic: ${user.workEthic}xp
-Criminality: ${user.creativity}xp
+Criminality: ${user.criminality}xp
 Reputation: ${user.reputation}xp
 `);
 
