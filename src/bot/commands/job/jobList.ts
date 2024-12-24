@@ -6,7 +6,7 @@ https://docs.google.com/spreadsheets/d/1iiw_z3f-RekF3_eYe-svbvan2F4bOO4X9mYS1dtS
 */
 
 export const jobPaths: JobList = {
-  supermarket: {
+  retail: {
     companies: [
       "Doormart",
       "Goal",

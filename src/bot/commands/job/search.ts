@@ -8,6 +8,7 @@ import type { LifebotCommandHandler } from "../../types/commandTypes";
 import type { JobTier } from "../../types/jobList";
 import { jobPaths } from "./jobList";
 import { Color } from "../../utils/colors";
+import { camelCaseToTitle } from "../../utils/camelCaseToTitle";
 
 export const search: LifebotCommandHandler = async (
   interaction,
@@ -47,14 +48,16 @@ export const search: LifebotCommandHandler = async (
     });
 
     const reqString = [];
-    for (const item in Object.entries(jobDesc.requirements)) {
-      const [key, value] = item;
-      reqString.push(`${key} - ${value}xp`);
+    for (const key in jobDesc.requirements) {
+      const value = (jobDesc.requirements as { [key: string]: number })[key];
+      if (value > 0) {
+        reqString.push(`${camelCaseToTitle(key)} - ${value}xp`);
+      }
     }
 
     embed.addFields({
       name: `${jobDesc.title}`,
-      value: `Company: ${companyName}\nStarting Pay: ${jobDesc.basePay}\nRequirements: ${reqString.join("\n")}`,
+      value: `Starting Pay: ${jobDesc.basePay}\nMax Pay: ${jobDesc.maxPay}\nCompany: ${companyName}\n\nRequirements:\n ${reqString.join("\n")}`,
       inline: true,
     });
 
