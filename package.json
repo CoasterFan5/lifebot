@@ -17,7 +17,7 @@
     "build": "tsx build.ts",
     "prod": "pnpm run deployCommands && pnpm run dbDeploy && node ./dist/full",
     "bot:prod": "pnpm run dbDeploy && pnpm run deployCommands && node dist/bot",
-    "dbDeploy": "npx drizzle-kit migrate"
+    "dbDeploy": "drizzle-kit migrate"
   },
   "keywords": [],
   "author": "",
