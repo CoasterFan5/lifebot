@@ -10,6 +10,9 @@ import { camelCaseToTitle } from "../../utils/camelCaseToTitle";
 import { Color } from "../../utils/colors";
 import { jobPaths } from "./jobList";
 import { checkUserRequirements } from "./jobUtils/checkUserRequirements";
+import { db } from "../../../db";
+import { usersTable } from "../../../db/schema";
+import { eq } from "drizzle-orm";
 
 const expiredEmbed = new EmbedBuilder()
   .setTitle("Expired")
@@ -24,9 +27,16 @@ const unqualifiedEmbed = new EmbedBuilder()
 const jobAppliedForEmbed = new EmbedBuilder()
   .setTitle("Job applied for!")
   .setDescription(
-    "You have already applied for a job, so we cleaned up this job search for you. Hope you got the job...",
+    "You have already applied for a job, so we cleaned up this job search for you.",
   )
   .setColor(Color.ORANGE);
+
+const alreadyHaveJob = new EmbedBuilder()
+  .setTitle("You are already employed.")
+  .setDescription(
+    "You can't job hunt if you already have a job!\nWhy? Because I hate you personally.",
+  )
+  .setColor(Color.RED);
 
 export const search: LifebotCommandHandler = async (
   interaction,
@@ -34,6 +44,13 @@ export const search: LifebotCommandHandler = async (
   client,
 ) => {
   // generate 3 random jobs
+
+  if (user.hasJob) {
+    interaction.reply({
+      embeds: [alreadyHaveJob],
+    });
+    return;
+  }
 
   const embed = new EmbedBuilder()
     .setTitle("Job Search")
@@ -104,7 +121,7 @@ export const search: LifebotCommandHandler = async (
           components: [],
         });
       })
-      .then((newInteraction) => {
+      .then(async (newInteraction) => {
         if (!newInteraction || !newInteraction.isButton()) {
           console.log("Exiting Early");
           return;
@@ -116,6 +133,7 @@ export const search: LifebotCommandHandler = async (
         // remove job options
         interaction.editReply({
           embeds: [jobAppliedForEmbed],
+          components: [],
         });
 
         if (!checkUserRequirements(user, jobDetails.jobDesc.requirements)) {
@@ -124,9 +142,32 @@ export const search: LifebotCommandHandler = async (
           });
           return;
         }
-        newInteraction.reply(
-          `\`\`\`${JSON.stringify(jobDetails, null, 4)}\`\`\``,
-        );
+        // grant the job
+
+        await db
+          .update(usersTable)
+          .set({
+            hasJob: true,
+            reputation: 0,
+            jobTierIndex: 0,
+            jobPath: jobDetails.pathString,
+            jobCompany: jobDetails.companyName,
+            jobName: jobDetails.jobDesc.title,
+            jobMinPay: jobDetails.jobDesc.basePay,
+            jobMaxPay: jobDetails.jobDesc.maxPay,
+          })
+          .where(eq(usersTable.userId, user.userId));
+
+        await newInteraction.reply({
+          embeds: [
+            new EmbedBuilder()
+              .setTitle("Welcome to the working class.")
+              .setDescription(
+                `Today you start life as a ${jobDetails.jobDesc.title}\nFrom now on, using /work will work your job.`,
+              )
+              .setColor(Color.ORANGE),
+          ],
+        });
       });
   } catch (e) {
     console.warn(e);

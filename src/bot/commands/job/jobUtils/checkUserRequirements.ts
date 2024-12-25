@@ -5,9 +5,9 @@ import type { StringedObject } from "../../../types/stringedObject";
 export const checkUserRequirements: (
   user: LifebotUser,
   jobRequirements: SkillValues,
-) => boolean = (user, jobRequiremnts) => {
-  for (const skillName in jobRequiremnts) {
-    const requiredXp = (jobRequiremnts as StringedObject<number>)[skillName];
+) => boolean = (user, jobRequirements) => {
+  for (const skillName in jobRequirements) {
+    const requiredXp = (jobRequirements as StringedObject<number>)[skillName];
     if (
       (user as unknown as StringedObject<number>)[skillName as string] <
       requiredXp
