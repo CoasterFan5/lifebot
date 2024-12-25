@@ -15,7 +15,7 @@
     "web:build": "tsx ./src/web/build.ts",
     "format": "biome check --write ./src",
     "build": "tsx build.ts",
-    "prod": "pnpm run deployCommands && pnpm run dbDeploy && node ./dist/full",
+    "prod": "pnpm run dbDeploy && pnpm run deployCommands && node ./dist/full",
     "bot:prod": "pnpm run dbDeploy && pnpm run deployCommands && node dist/bot",
     "dbDeploy": "drizzle-kit migrate"
   },
