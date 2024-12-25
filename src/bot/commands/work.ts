@@ -1,10 +1,12 @@
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import { eq, sql } from "drizzle-orm";
+import { client } from "..";
 import { db } from "../../db";
 import { usersTable } from "../../db/schema";
 import { workMessages } from "../textBank/work";
 import type { LifebotCommand } from "../types/commandTypes";
 import { Color } from "../utils/colors";
+import { jobWork } from "./job/jobWork";
 
 const WORK_COOLDOWN = 60_000; // ms in work cooldown
 
@@ -29,6 +31,11 @@ export const work: LifebotCommand = {
 			return;
 		}
 
+		if (user.hasJob) {
+			await jobWork(interaction, user, client);
+			return;
+		}
+
 		const amount = Math.floor(Math.random() * 900) + 100;
 		await db
 			.update(usersTable)
@@ -46,9 +53,6 @@ export const work: LifebotCommand = {
 					.setAuthor({
 						name: interaction.user.displayName,
 						iconURL: interaction.user.displayAvatarURL(),
-					})
-					.setFooter({
-						text: `Mid: ${messageIndex}`,
 					}),
 			],
 		});

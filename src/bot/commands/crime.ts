@@ -28,7 +28,7 @@ export const crime: LifebotCommand = {
 			return;
 		}
 
-		const isGood = Math.random() > 0.45;
+		const isGood = Math.random() > 0.5 - Math.log2(user.criminality) * 2;
 		const multiplier = isGood ? 1 : -1;
 		const amount = (Math.floor(Math.random() * 1000) + 1000) * multiplier;
 		const messageList = isGood ? goodCrime : badCrimes;
@@ -43,6 +43,7 @@ export const crime: LifebotCommand = {
 			.set({
 				balance: (user.balance || 0) + amount,
 				lastCrime: new Date(),
+				criminality: user.criminality + 1,
 			})
 			.where(eq(usersTable.userId, user.userId));
 
@@ -50,10 +51,7 @@ export const crime: LifebotCommand = {
 			embeds: [
 				getPersonalizedEmbed(interaction.user)
 					.setDescription(message)
-					.setColor(isGood ? Color.GREEN : Color.RED)
-					.setFooter({
-						text: `Mid: ${messageIndex}`,
-					}),
+					.setColor(isGood ? Color.GREEN : Color.RED),
 			],
 		});
 	},

@@ -21,10 +21,7 @@ export const wordUnscrable: QuickTimeEvent = async (message) => {
 	const questionEmbed = new EmbedBuilder()
 		.setTitle("Word Scramble!")
 		.setDescription(`First one to unscramble \`${shuffledWord}\` gets a prize!`)
-		.setColor(Color.PURPLE)
-		.setFooter({
-			text: word,
-		});
+		.setColor(Color.PURPLE);
 
 	const question = await message.channel.send({
 		embeds: [questionEmbed],
@@ -32,7 +29,7 @@ export const wordUnscrable: QuickTimeEvent = async (message) => {
 
 	message.channel
 		.awaitMessages({
-			filter: (m) => m.content.includes(word),
+			filter: (m) => m.content.toLowerCase().includes(word),
 			time: 15_000,
 			max: 1,
 			errors: ["time"],
