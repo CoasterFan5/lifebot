@@ -62,3 +62,5 @@ export const petnames = [
 	"James",
 	"Beans",
 ];
+
+export const species = ["Cat", "Dog", "Bird", "Rabbit", "Hamster"];

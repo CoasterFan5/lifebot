@@ -71,6 +71,27 @@
       "when": 1735067741831,
       "tag": "0009_same_boomer",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1735175421785,
+      "tag": "0010_blue_cardiac",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1735175640399,
+      "tag": "0011_square_betty_brant",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1735175848664,
+      "tag": "0012_complete_red_skull",
+      "breakpoints": true
     }
   ]
 }

@@ -3,6 +3,7 @@ import {
 	decimal,
 	integer,
 	pgTable,
+	serial,
 	timestamp,
 	varchar,
 } from "drizzle-orm/pg-core";
@@ -37,25 +38,15 @@ export const usersTable = pgTable("users", {
 });
 
 export const petsTable = pgTable("pets", {
-	id: integer().notNull().unique(),
-	ownerId: varchar({ length: 256 }),
+	id: serial().primaryKey(),
+	ownerId: varchar({ length: 256 }).notNull(),
 	petName: varchar({ length: 256 }).notNull(),
 	species: varchar({ length: 256 }).notNull(), //Cat, Dog, etc.
-	age: decimal(),
-	price: decimal(),
-	isSold: boolean(),
-	mood: varchar({ length: 256 }), //Calculated based on lastFed, lastPlayed, lastPet
-	hungry: decimal(), //% of hunger, at 100% the pet dies
-	lastFed: decimal(),
-	lastPlayed: decimal(),
-	lastPet: decimal(),
+	level: integer().notNull().default(1),
+	rarity: integer().notNull().default(1),
+	lastTrain:	timestamp(),
 });
 
-export const userPetsTable = pgTable("user_pets", {
-	id: integer().notNull().unique(),
-	userId: varchar({ length: 256 }).notNull(),
-	petId: integer().notNull(),
-});
 
 export const userItemsTable = pgTable("user_items", {
 	id: integer().notNull().unique(),
@@ -71,3 +62,5 @@ export const itemsTable = pgTable("items", {
 	price: decimal(),
 	useable: boolean(),
 });
+
+
