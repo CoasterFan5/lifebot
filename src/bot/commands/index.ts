@@ -11,6 +11,7 @@ import { ping } from "./ping";
 import { rank } from "./rank";
 import { skills } from "./skills";
 import { source } from "./source";
+import { support } from "./support";
 import { work } from "./work";
 
 export const commands: {
@@ -26,4 +27,5 @@ export const commands: {
 	rank,
 	job,
 	skills,
+	support,
 };

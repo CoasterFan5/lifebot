@@ -25,6 +25,7 @@ export type JobTier = {
 
 export type JobDetails = {
 	companies: string[];
+	emergencyMeetingText: string;
 	tiers: JobTier[];
 };
 

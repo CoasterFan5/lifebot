@@ -15,6 +15,8 @@ export const jobPaths: JobList = {
 			"Teeter Faris",
 			"Worstbuy",
 		],
+		emergencyMeetingText:
+			"It's almost black friday! Join this meeting for the black friday debreif or risk being fired and fined 30% of your balance.",
 		tiers: [
 			{
 				title: "Bagger",
@@ -200,6 +202,8 @@ export const jobPaths: JobList = {
 			"Ender's Bar and Grill",
 			"Sharky Warky's",
 		],
+		emergencyMeetingText:
+			"The president is coming to {companyName} for a bite to eat! Join this meeting by click the button or you will be fined 30% of your balance.",
 		tiers: [
 			{
 				title: "Busser",
@@ -408,6 +412,8 @@ export const jobPaths: JobList = {
 	},
 	construction: {
 		companies: ["CF5 Group", "RAE", "Dragon"],
+		emergencyMeetingText:
+			"The construction project you were working on is headed south. This meeting hopes to fix that! Join now or risk being fined 30% of your balance and fired.",
 		tiers: [
 			{
 				title: "General Laborer",
@@ -645,6 +651,8 @@ export const jobPaths: JobList = {
 	},
 	hospitality: {
 		companies: ["Marry Gyat", "Hiltop", "Motel 12", "Rizz Carlton", "Westout"],
+		emergencyMeetingText:
+			"The hotel is at maximum capacity today! Join this meeting or risk being fired and fined 30% of your balance.",
 		tiers: [
 			{
 				title: "Housekeeper",
@@ -888,6 +896,8 @@ export const jobPaths: JobList = {
 			"Ender's Bar and Grill",
 			"Sharky Warky's",
 		],
+		emergencyMeetingText:
+			"The president is coming to {companyName} for a bite to eat! Join this meeting by click the button or you will be fined 30% of your balance.",
 		tiers: [
 			{
 				title: "Diswasher",
@@ -1066,7 +1076,16 @@ export const jobPaths: JobList = {
 		],
 	},
 	software: {
-		companies: ["Facenovel", "Orange", "Sahara", "WebFlix", "Goggle"],
+		companies: [
+			"Facenovel",
+			"Orange",
+			"Sahara",
+			"WebFlix",
+			"Goggle",
+			"Viatech",
+		],
+		emergencyMeetingText:
+			"It's layoff season! Join this meeting or you will be fired and fined 30% of your balance.",
 		tiers: [
 			{
 				title: "Software Developer Intern",
@@ -1252,6 +1271,8 @@ export const jobPaths: JobList = {
 			"Thieven",
 			"Wild's Crime Ring",
 		],
+		emergencyMeetingText:
+			"A rival gang is planning to attack! Come to the emergency meeting and plan a counter or risk being considered a spy! If you do not attend you will be fined 30% of your balance and be fired!",
 		tiers: [
 			{
 				title: "Lookout",
