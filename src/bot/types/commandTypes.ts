@@ -1,22 +1,26 @@
 import {
-	type CacheType,
-	type ChatInputCommandInteraction,
-	type Client,
-	type MessageContextMenuCommandInteraction,
-	type SharedSlashCommand,
-	SlashCommandBuilder,
-	type UserContextMenuCommandInteraction,
+  type CacheType,
+  type ChatInputCommandInteraction,
+  type Client,
+  type MessageContextMenuCommandInteraction,
+  type SharedSlashCommand,
+  SlashCommandBuilder,
+  type UserContextMenuCommandInteraction,
 } from "discord.js";
 
 import type { usersTable } from "../../db/schema";
 
+type LifebotCommandProps = {
+  interaction: ChatInputCommandInteraction<CacheType>;
+  user: typeof usersTable.$inferSelect;
+  client: Client<boolean>;
+};
+
 export type LifebotCommandHandler = (
-	interaction: ChatInputCommandInteraction<CacheType>,
-	user: typeof usersTable.$inferSelect,
-	client: Client<boolean>,
+  props: LifebotCommandProps,
 ) => Promise<void>;
 
 export type LifebotCommand = {
-	command: SharedSlashCommand;
-	handler: LifebotCommandHandler;
+  command: SharedSlashCommand;
+  handler: LifebotCommandHandler;
 };

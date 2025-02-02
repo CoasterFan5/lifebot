@@ -80,7 +80,7 @@ export const house: LifebotCommand = {
             .setRequired(true),
         ),
     ),
-  handler: async (interaction) => {
+  handler: async ({ interaction }) => {
     await interaction.reply("a");
   },
 };
