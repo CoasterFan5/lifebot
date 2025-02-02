@@ -3,10 +3,15 @@ import {
   SlashCommandIntegerOption,
   SlashCommandSubcommandBuilder,
 } from "discord.js";
-import type { LifebotCommand } from "../../types/commandTypes";
+import type {
+  LifebotCommand,
+  LifebotCommandHandler,
+} from "../../types/commandTypes";
 import { buy } from "./house/buy";
 
-const houseCommands = {
+const houseCommands: {
+  [key: string]: LifebotCommandHandler;
+} = {
   buy: buy,
 };
 
@@ -80,7 +85,14 @@ export const house: LifebotCommand = {
             .setRequired(true),
         ),
     ),
-  handler: async ({ interaction }) => {
-    await interaction.reply("a");
+  handler: async (props) => {
+    const { interaction } = props;
+    const subCommand = interaction.options.getSubcommand(true);
+
+    try {
+      houseCommands[subCommand](props);
+    } catch (e) {
+      interaction.reply("Error");
+    }
   },
 };
