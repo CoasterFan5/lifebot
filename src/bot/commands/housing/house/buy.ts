@@ -82,7 +82,7 @@ export const buy: LifebotCommandHandler = async ({ interaction, user }) => {
         components: [newActionRow],
       });
     })
-    .then((newInteraction) => {
+    .then(async (newInteraction) => {
       if (newInteraction?.isButton()) {
         embed.setColor(Color.RED);
         embed.setTitle("House Shopping (expired)");
@@ -100,15 +100,27 @@ export const buy: LifebotCommandHandler = async ({ interaction, user }) => {
 
         const selectedHouse = houses[stringToIntMap[newInteraction.customId]];
 
-        db.insert(housesTable).values({
-          location: selectedHouse.location,
-          quality: selectedHouse.quality,
-          squareFootage: selectedHouse.squareFootage,
-          furnitureScore: selectedHouse.furniture,
-          ownerId: user.userId,
-        });
+        const newHouse = await db
+          .insert(housesTable)
+          .values({
+            location: selectedHouse.location,
+            quality: selectedHouse.quality,
+            squareFootage: selectedHouse.squareFootage,
+            furnitureScore: selectedHouse.furniture,
+            ownerId: user.userId,
+          })
+          .returning();
 
-        newInteraction.reply(JSON.stringify(selectedHouse));
+        const congratsEmbed = new EmbedBuilder()
+          .setTitle("Congrats!")
+          .setColor(Color.BLUE)
+          .setDescription(
+            `You purchased a house, view your house info with \`/house info ${newHouse[0]?.id}\``,
+          );
+
+        newInteraction.reply({
+          embeds: [congratsEmbed],
+        });
       }
     });
 };
