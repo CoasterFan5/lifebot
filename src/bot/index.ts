@@ -99,3 +99,17 @@ client.on(Events.ClientReady, (e) => {
 
 client.login(token);
 console.info("Bot started");
+
+process.on("uncaughtException", async (err, origin) => {
+  const chan = await client.channels.fetch("1336093534880665684");
+  if (chan?.isSendable()) {
+    chan.send(
+      [
+        "Lifebot just thew a critical error. This log signifies a crash was prevented.",
+        `Origin: \`${origin}\``,
+        `Error: \`${err}\``,
+        `Stack: \`\`\`${err.stack}\`\`\``,
+      ].join("\n"),
+    );
+  }
+});

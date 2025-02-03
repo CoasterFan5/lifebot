@@ -5,6 +5,7 @@ import type { LifebotCommandHandler } from "../../../types/commandTypes";
 import { EmbedBuilder } from "discord.js";
 import { Color } from "../../../utils/colors";
 import { calculateHouseValue } from "./util/calculateHouseValue";
+import { nFormat } from "../../../utils/nFormat";
 
 export const info: LifebotCommandHandler = async ({ interaction, user }) => {
   const houseId = interaction.options.getInteger("id", false);
@@ -48,7 +49,7 @@ export const info: LifebotCommandHandler = async ({ interaction, user }) => {
         .setTitle(`House id: ${house.id}`)
         .setDescription(
           [
-            `Value: $${calculateHouseValue(house)}`,
+            `Value: $${nFormat(calculateHouseValue(house))}`,
             `Size: ${house.squareFootage} square feet`,
             `Location: ${house.location}/100`,
             `Quality: ${house.quality}/100`,
