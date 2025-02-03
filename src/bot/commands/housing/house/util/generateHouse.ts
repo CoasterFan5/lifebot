@@ -30,8 +30,14 @@ export const generateHouse = () => {
     furniture: 0,
   };
 
+  /*
+    Ignore quality to prevent buying a house, renovating, and instantly selling for profit.
+  */
+
   return {
     ...houseData,
-    value: calculateHouseValue(houseData),
+    value: calculateHouseValue(houseData, {
+      ignoreQuality: true,
+    }),
   };
 };

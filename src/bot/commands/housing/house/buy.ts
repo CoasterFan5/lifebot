@@ -1,7 +1,20 @@
-import { EmbedBuilder } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 import type { LifebotCommandHandler } from "../../../types/commandTypes";
 import { generateHouse } from "./util/generateHouse";
 import { Color } from "../../../utils/colors";
+
+const SIXTY_SECONDS = 60_000;
+
+const stringToIntMap: { [key: string]: number } = {
+  "1": 0,
+  "2": 1,
+  "3": 2,
+};
 
 export const buy: LifebotCommandHandler = async ({ interaction }) => {
   const houses = [generateHouse(), generateHouse(), generateHouse()];
@@ -25,5 +38,66 @@ export const buy: LifebotCommandHandler = async ({ interaction }) => {
     });
   }
 
-  interaction.reply({ embeds: [embed] });
+  const actionRow = new ActionRowBuilder<ButtonBuilder>();
+
+  const button1 = new ButtonBuilder()
+    .setLabel("Buy House 1")
+    .setStyle(ButtonStyle.Primary)
+    .setCustomId("1");
+  const button2 = new ButtonBuilder()
+    .setLabel("Buy House 2")
+    .setStyle(ButtonStyle.Primary)
+    .setCustomId("2");
+  const button3 = new ButtonBuilder()
+    .setLabel("Buy House 3")
+    .setStyle(ButtonStyle.Primary)
+    .setCustomId("3");
+
+  actionRow.addComponents(button1, button2, button3);
+
+  const response = await interaction.reply({
+    embeds: [embed],
+    components: [actionRow],
+  });
+
+  response
+    .awaitMessageComponent({
+      time: SIXTY_SECONDS,
+      filter: async (i) => i.user.id === interaction.user.id,
+    })
+    .catch((e) => {
+      embed.setColor(Color.RED);
+      embed.setTitle("House Shopping (expired)");
+
+      const newActionRow = new ActionRowBuilder<ButtonBuilder>();
+      newActionRow.addComponents(
+        button1.setDisabled(),
+        button2.setDisabled(),
+        button3.setDisabled(),
+      );
+      response.edit({
+        embeds: [embed],
+        components: [newActionRow],
+      });
+    })
+    .then((newInteraction) => {
+      if (newInteraction?.isButton()) {
+        embed.setColor(Color.RED);
+        embed.setTitle("House Shopping (expired)");
+
+        const newActionRow = new ActionRowBuilder<ButtonBuilder>();
+        newActionRow.addComponents(
+          button1.setDisabled(),
+          button2.setDisabled(),
+          button3.setDisabled(),
+        );
+        response.edit({
+          embeds: [embed],
+          components: [newActionRow],
+        });
+
+        const selectedHouse = houses[stringToIntMap[newInteraction.customId]];
+        newInteraction.reply(JSON.stringify(selectedHouse));
+      }
+    });
 };
