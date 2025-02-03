@@ -71,6 +71,13 @@
       "when": 1735067741831,
       "tag": "0009_same_boomer",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1738600562928,
+      "tag": "0010_quick_speed_demon",
+      "breakpoints": true
     }
   ]
 }
