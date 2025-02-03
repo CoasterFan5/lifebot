@@ -27,7 +27,7 @@ export const generateHouse = () => {
     location: Math.floor(Math.random() * 101),
     squareFootage: randomSquareFootage(),
     quality: Math.floor(Math.random() * 101),
-    furniture: 0,
+    furnitureScore: 0,
   };
 
   /*

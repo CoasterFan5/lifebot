@@ -2,5 +2,5 @@ export type BasicHouseData = {
   location: number;
   squareFootage: number;
   quality: number;
-  furniture: number;
+  furnitureScore: number;
 };

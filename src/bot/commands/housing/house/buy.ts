@@ -34,7 +34,7 @@ export const buy: LifebotCommandHandler = async ({ interaction, user }) => {
         `Location: ${house.location}/100`,
         `Size: ${house.squareFootage} Square Feet`,
         `Quality: ${house.quality}/100`,
-        `Furniture Score: ${house.furniture}/100`,
+        `Furniture Score: ${house.furnitureScore}/100`,
       ].join("\n"),
       inline: true,
     });
@@ -106,7 +106,7 @@ export const buy: LifebotCommandHandler = async ({ interaction, user }) => {
             location: selectedHouse.location,
             quality: selectedHouse.quality,
             squareFootage: selectedHouse.squareFootage,
-            furnitureScore: selectedHouse.furniture,
+            furnitureScore: selectedHouse.furnitureScore,
             ownerId: user.userId,
           })
           .returning();

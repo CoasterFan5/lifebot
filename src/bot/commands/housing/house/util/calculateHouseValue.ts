@@ -11,7 +11,7 @@ export const calculateHouseValue = (
   return Math.ceil(
     (house.location ** 1.5 *
       house.squareFootage *
-      (qualityFactor + house.furniture)) /
+      (qualityFactor + house.furnitureScore)) /
       200,
   );
 };

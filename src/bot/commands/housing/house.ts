@@ -8,11 +8,13 @@ import type {
   LifebotCommandHandler,
 } from "../../types/commandTypes";
 import { buy } from "./house/buy";
+import { info } from "./house/info";
 
 const houseCommands: {
   [key: string]: LifebotCommandHandler;
 } = {
   buy: buy,
+  info: info,
 };
 
 export const house: LifebotCommand = {
@@ -65,7 +67,7 @@ export const house: LifebotCommand = {
           new SlashCommandIntegerOption()
             .setName("id")
             .setDescription("The id ofthe house.")
-            .setRequired(true),
+            .setRequired(false),
         ),
     )
     .addSubcommand(
