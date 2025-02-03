@@ -7,6 +7,8 @@ import {
 import type { LifebotCommandHandler } from "../../../types/commandTypes";
 import { generateHouse } from "./util/generateHouse";
 import { Color } from "../../../utils/colors";
+import { db } from "../../../../db";
+import { housesTable } from "../../../../db/schema";
 
 const SIXTY_SECONDS = 60_000;
 
@@ -16,7 +18,7 @@ const stringToIntMap: { [key: string]: number } = {
   "3": 2,
 };
 
-export const buy: LifebotCommandHandler = async ({ interaction }) => {
+export const buy: LifebotCommandHandler = async ({ interaction, user }) => {
   const houses = [generateHouse(), generateHouse(), generateHouse()];
 
   const embed = new EmbedBuilder()
@@ -97,6 +99,15 @@ export const buy: LifebotCommandHandler = async ({ interaction }) => {
         });
 
         const selectedHouse = houses[stringToIntMap[newInteraction.customId]];
+
+        db.insert(housesTable).values({
+          location: selectedHouse.location,
+          quality: selectedHouse.quality,
+          squareFootage: selectedHouse.squareFootage,
+          furnitureScore: selectedHouse.furniture,
+          ownerId: user.userId,
+        });
+
         newInteraction.reply(JSON.stringify(selectedHouse));
       }
     });
