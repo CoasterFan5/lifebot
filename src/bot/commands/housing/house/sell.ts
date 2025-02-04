@@ -79,7 +79,7 @@ export const sell: LifebotCommandHandler = async ({ interaction, user }) => {
       if (newInteraction.isRepliable()) {
         const soldEmbed = new EmbedBuilder()
           .setTitle("House sold.")
-          .setDescription("Bye bye.")
+          .setDescription(`Bye bye house. Hello $${nFormat(sellValue)}.`)
           .setColor(Color.BLUE);
         newInteraction.reply({
           embeds: [soldEmbed],
