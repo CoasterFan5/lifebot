@@ -8,7 +8,8 @@ import type { LifebotCommandHandler } from "../../../types/commandTypes";
 import { generateHouse } from "./util/generateHouse";
 import { Color } from "../../../utils/colors";
 import { db } from "../../../../db";
-import { housesTable } from "../../../../db/schema";
+import { housesTable, usersTable } from "../../../../db/schema";
+import { increment } from "../../../../db/increment";
 
 const SIXTY_SECONDS = 60_000;
 
@@ -100,6 +101,20 @@ export const buy: LifebotCommandHandler = async ({ interaction, user }) => {
 
         const selectedHouse = houses[stringToIntMap[newInteraction.customId]];
 
+        if (selectedHouse.value > (user?.balance || 0)) {
+          const poorEmbed = new EmbedBuilder()
+            .setColor(Color.BLUE)
+            .setTitle("Broke!")
+            .setDescription(
+              "Get your money up first. (You can't afford this house)",
+            );
+
+          newInteraction.reply({
+            embeds: [poorEmbed],
+          });
+          return;
+        }
+
         const newHouse = await db
           .insert(housesTable)
           .values({
@@ -110,6 +125,10 @@ export const buy: LifebotCommandHandler = async ({ interaction, user }) => {
             ownerId: user.userId,
           })
           .returning();
+
+        await db.update(usersTable).set({
+          balance: increment(usersTable.balance, -selectedHouse.value),
+        });
 
         const congratsEmbed = new EmbedBuilder()
           .setTitle("Congrats!")

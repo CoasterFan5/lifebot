@@ -10,13 +10,15 @@ import type {
 import { buy } from "./house/buy";
 import { info } from "./house/info";
 import { sell } from "./house/sell";
+import { lease } from "./house/lease";
 
 const houseCommands: {
   [key: string]: LifebotCommandHandler;
 } = {
-  buy: buy,
-  info: info,
-  sell: sell,
+  buy,
+  info,
+  sell,
+  lease,
 };
 
 export const house: LifebotCommand = {
