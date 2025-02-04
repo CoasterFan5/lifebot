@@ -102,12 +102,15 @@ export const lease: LifebotCommandHandler = async ({ interaction, user }) => {
           return;
         }
 
-        await db.update(housesTable).set({
-          leased: true,
-          rentPrice: possibleTenant.rentPayment,
-          tenantScore: possibleTenant.score,
-          tenanteWealth: possibleTenant.wealth,
-        });
+        await db
+          .update(housesTable)
+          .set({
+            leased: true,
+            rentPrice: possibleTenant.rentPayment,
+            tenantScore: possibleTenant.score,
+            tenanteWealth: possibleTenant.wealth,
+          })
+          .where(eq(housesTable.id, house.id));
 
         tenantInfoEmbed.setTitle("Approved!");
         tenantInfoEmbed.setColor(Color.GREEN);

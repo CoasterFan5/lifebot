@@ -1,4 +1,4 @@
-import { $Type, and, eq } from "drizzle-orm";
+import { $Type, and, desc, eq } from "drizzle-orm";
 import { db } from "../../../../db";
 import { housesTable } from "../../../../db/schema";
 import type { LifebotCommandHandler } from "../../../types/commandTypes";
@@ -43,20 +43,36 @@ export const info: LifebotCommandHandler = async ({ interaction, user }) => {
 
   const embedList = new Array();
   for (const house of houses) {
-    embedList.push(
-      new EmbedBuilder()
-        .setColor(Color.BLUE)
-        .setTitle(`House id: ${house.id}`)
-        .setDescription(
-          [
-            `Value: $${nFormat(calculateHouseValue(house))}`,
-            `Size: ${house.squareFootage} square feet`,
-            `Location: ${house.location}/100`,
-            `Quality: ${house.quality}/100`,
-            `Furniture Score: ${house.furnitureScore}/100`,
-          ].join("\n"),
-        ),
-    );
+    const houseInfoEmbed = new EmbedBuilder()
+      .setColor(Color.BLUE)
+      .setTitle(`House id: ${house.id}`)
+      .setDescription(
+        [
+          `Value: $${nFormat(calculateHouseValue(house))}`,
+          `Size: ${house.squareFootage} square feet`,
+          `Location: ${house.location}/100`,
+          `Quality: ${house.quality}/100`,
+          `Furniture Score: ${house.furnitureScore}/100`,
+        ].join("\n"),
+      );
+
+    if (house.leased) {
+      const lastRent = house.lastRentCollection;
+      const lastRentString = lastRent
+        ? `<t:${lastRent.getTime() / 1000}`
+        : "Never";
+
+      houseInfoEmbed.addFields({
+        name: "Tenant Info",
+        value: [
+          `Rent Amount: $${nFormat(house.rentPrice)}`,
+          `Last Rent Collection: ${lastRentString}`,
+          `Tenant Quality: ${house.tenantScore}/100`,
+        ].join("\n"),
+      });
+    }
+
+    embedList.push(houseInfoEmbed);
   }
 
   interaction.reply({
