@@ -43,6 +43,23 @@ export const renovate: LifebotCommandHandler = async ({
     ignoreQuality: true,
   });
 
+  if ((user.balance || 0) < renovationCost) {
+    interaction.reply({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle("Brokie!")
+          .setDescription(
+            [
+              `You can't afford to renovate this home.`,
+              `You need $${nFormat(renovationCost)} to renovate!`,
+            ].join("\n"),
+          )
+          .setColor(Color.BLUE),
+      ],
+    });
+    return;
+  }
+
   const confirmEmbed = new EmbedBuilder()
     .setTitle("Are you sure?")
     .setDescription(
