@@ -11,6 +11,7 @@ import { buy } from "./house/buy";
 import { info } from "./house/info";
 import { sell } from "./house/sell";
 import { lease } from "./house/lease";
+import { renovate } from "./house/renovate";
 
 const houseCommands: {
   [key: string]: LifebotCommandHandler;
@@ -19,6 +20,7 @@ const houseCommands: {
   info,
   sell,
   lease,
+  renovate,
 };
 
 export const house: LifebotCommand = {
