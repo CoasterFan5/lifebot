@@ -12,6 +12,7 @@ import { info } from "./house/info";
 import { sell } from "./house/sell";
 import { lease } from "./house/lease";
 import { renovate } from "./house/renovate";
+import { collect } from "./house/collect";
 
 const houseCommands: {
   [key: string]: LifebotCommandHandler;
@@ -21,6 +22,7 @@ const houseCommands: {
   sell,
   lease,
   renovate,
+  collect,
 };
 
 export const house: LifebotCommand = {
@@ -73,6 +75,17 @@ export const house: LifebotCommand = {
           new SlashCommandIntegerOption()
             .setName("id")
             .setDescription("The id ofthe house.")
+            .setRequired(false),
+        ),
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("collect")
+        .setDescription("Collect rent from a house")
+        .addIntegerOption(
+          new SlashCommandIntegerOption()
+            .setName("id")
+            .setDescription("THe id of the house.")
             .setRequired(false),
         ),
     )

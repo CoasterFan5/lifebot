@@ -63,7 +63,7 @@ export const lease: LifebotCommandHandler = async ({ interaction, user }) => {
       [
         `Name: ${tenantName.firstName} ${tenantName.lastName}`,
         `Rent Payment: $${nFormat(possibleTenant.rentPayment)}`,
-        `Score: ${possibleTenant.score}/100`,
+        `Score: ${possibleTenant.score}/5`,
       ].join("\n"),
     );
 
@@ -85,7 +85,7 @@ export const lease: LifebotCommandHandler = async ({ interaction, user }) => {
 
   interactionResponse
     .awaitMessageComponent({
-      time: 5_000,
+      time: 60_000,
       filter: (i) => i.user.id === user.userId,
     })
     .then(async (newInteraction) => {

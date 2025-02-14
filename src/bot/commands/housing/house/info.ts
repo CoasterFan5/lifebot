@@ -59,7 +59,7 @@ export const info: LifebotCommandHandler = async ({ interaction, user }) => {
     if (house.leased) {
       const lastRent = house.lastRentCollection;
       const lastRentString = lastRent
-        ? `<t:${lastRent.getTime() / 1000}`
+        ? `<t:${Math.floor(lastRent.getTime() / 1000)}:R>`
         : "Never";
 
       houseInfoEmbed.addFields({
@@ -67,7 +67,7 @@ export const info: LifebotCommandHandler = async ({ interaction, user }) => {
         value: [
           `Rent Amount: $${nFormat(house.rentPrice)}`,
           `Last Rent Collection: ${lastRentString}`,
-          `Tenant Quality: ${house.tenantScore}/100`,
+          `Tenant Quality: ${house.tenantScore}/5`,
         ].join("\n"),
       });
     }
