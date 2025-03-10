@@ -3,8 +3,11 @@ import { db } from "../../../../db";
 import { housesTable } from "../../../../db/schema";
 import type { LifebotCommandHandler } from "../../../types/commandTypes";
 import { noHouseFoundEmbed } from "./util/noHouseEmbed";
+import { EmbedBuilder } from "discord.js";
+import { nFormat } from "../../../utils/nFormat";
+import { Color } from "../../../utils/colors";
 
-const ONE_HOUR = 0;
+const ONE_HOUR = 60 * 60 * 1000;
 
 export const collect: LifebotCommandHandler = async ({ interaction, user }) => {
   let homes: (typeof housesTable.$inferSelect)[];
@@ -32,9 +35,59 @@ export const collect: LifebotCommandHandler = async ({ interaction, user }) => {
 
   let totalCollected = 0;
 
-  for (const house of homes) {
-    totalCollected += house.rentPrice;
+  const moveOuts: number[] = [];
+  const moveoutPromises: Promise<unknown>[] = [];
+
+  if (homes.length < 1) {
+    interaction.reply({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle("No house ready")
+          .setDescription("No houses are ready with rent.")
+          .setColor(Color.RED),
+      ],
+    });
+    return;
   }
 
-  interaction.reply(totalCollected + JSON.stringify(homes));
+  for (const house of homes) {
+    totalCollected += house.rentPrice;
+    if (house.tenanteWealth < 0) {
+      moveOuts.push(house.id);
+      moveoutPromises.push(
+        db
+          .update(housesTable)
+          .set({
+            leased: false,
+          })
+          .where(eq(housesTable.id, house.id)),
+      );
+    }
+  }
+
+  const collectedEmbed = new EmbedBuilder()
+    .setTitle("Rent Collected")
+    .setDescription(
+      `You collected $${nFormat(totalCollected)} from ${homes.length} homes`,
+    )
+    .setColor(Color.BLUE);
+
+  await Promise.all(moveoutPromises);
+
+  const embedList = [collectedEmbed];
+  if (moveOuts.length > 0) {
+    embedList.push(
+      new EmbedBuilder().setTitle("Uh oh").setDescription(
+        moveOuts
+          .map((item) => {
+            return `A tenant moved out of house ${item} because it was too expensive!`;
+          })
+          .join("\n"),
+      ),
+    );
+  }
+
+  interaction.reply({
+    embeds: embedList,
+  });
 };
