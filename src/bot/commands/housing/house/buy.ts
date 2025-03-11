@@ -1,150 +1,150 @@
 import {
-  ActionRowBuilder,
-  ButtonBuilder,
-  ButtonStyle,
-  EmbedBuilder,
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonStyle,
+	EmbedBuilder,
 } from "discord.js";
+import { eq } from "drizzle-orm";
 import { db } from "../../../../db";
 import { increment } from "../../../../db/increment";
 import { housesTable, usersTable } from "../../../../db/schema";
 import type { LifebotCommandHandler } from "../../../types/commandTypes";
 import { Color } from "../../../utils/colors";
-import { generateHouse } from "./util/generateHouse";
 import { nFormat } from "../../../utils/nFormat";
-import { eq } from "drizzle-orm";
+import { generateHouse } from "./util/generateHouse";
 
 const SIXTY_SECONDS = 60_000;
 
 const stringToIntMap: { [key: string]: number } = {
-  "1": 0,
-  "2": 1,
-  "3": 2,
+	"1": 0,
+	"2": 1,
+	"3": 2,
 };
 
 export const buy: LifebotCommandHandler = async ({ interaction, user }) => {
-  const houses = [generateHouse(), generateHouse(), generateHouse()];
+	const houses = [generateHouse(), generateHouse(), generateHouse()];
 
-  const embed = new EmbedBuilder()
-    .setTitle("House Shopping")
-    .setDescription("We love housing.")
-    .setColor(Color.BLUE);
+	const embed = new EmbedBuilder()
+		.setTitle("House Shopping")
+		.setDescription("We love housing.")
+		.setColor(Color.BLUE);
 
-  for (const [index, house] of houses.entries()) {
-    embed.addFields({
-      name: `House #${index + 1}`,
-      value: [
-        `Cost: $${nFormat(house.value)}`,
-        `Location: ${house.location}/100`,
-        `Size: ${house.squareFootage} Square Feet`,
-        `Quality: ${house.quality}/100`,
-        `Furniture Score: ${house.furnitureScore}/100`,
-      ].join("\n"),
-      inline: true,
-    });
-  }
+	for (const [index, house] of houses.entries()) {
+		embed.addFields({
+			name: `House #${index + 1}`,
+			value: [
+				`Cost: $${nFormat(house.value)}`,
+				`Location: ${house.location}/100`,
+				`Size: ${house.squareFootage} Square Feet`,
+				`Quality: ${house.quality}/100`,
+				`Furniture Score: ${house.furnitureScore}/100`,
+			].join("\n"),
+			inline: true,
+		});
+	}
 
-  const actionRow = new ActionRowBuilder<ButtonBuilder>();
+	const actionRow = new ActionRowBuilder<ButtonBuilder>();
 
-  const button1 = new ButtonBuilder()
-    .setLabel("Buy House 1")
-    .setStyle(ButtonStyle.Primary)
-    .setCustomId("1");
-  const button2 = new ButtonBuilder()
-    .setLabel("Buy House 2")
-    .setStyle(ButtonStyle.Primary)
-    .setCustomId("2");
-  const button3 = new ButtonBuilder()
-    .setLabel("Buy House 3")
-    .setStyle(ButtonStyle.Primary)
-    .setCustomId("3");
+	const button1 = new ButtonBuilder()
+		.setLabel("Buy House 1")
+		.setStyle(ButtonStyle.Primary)
+		.setCustomId("1");
+	const button2 = new ButtonBuilder()
+		.setLabel("Buy House 2")
+		.setStyle(ButtonStyle.Primary)
+		.setCustomId("2");
+	const button3 = new ButtonBuilder()
+		.setLabel("Buy House 3")
+		.setStyle(ButtonStyle.Primary)
+		.setCustomId("3");
 
-  actionRow.addComponents(button1, button2, button3);
+	actionRow.addComponents(button1, button2, button3);
 
-  const response = await interaction.reply({
-    embeds: [embed],
-    components: [actionRow],
-  });
+	const response = await interaction.reply({
+		embeds: [embed],
+		components: [actionRow],
+	});
 
-  response
-    .awaitMessageComponent({
-      time: SIXTY_SECONDS,
-      filter: async (i) => i.user.id === interaction.user.id,
-    })
-    .catch((e) => {
-      embed.setColor(Color.RED);
-      embed.setTitle("House Shopping (expired)");
+	response
+		.awaitMessageComponent({
+			time: SIXTY_SECONDS,
+			filter: async (i) => i.user.id === interaction.user.id,
+		})
+		.catch((e) => {
+			embed.setColor(Color.RED);
+			embed.setTitle("House Shopping (expired)");
 
-      const newActionRow = new ActionRowBuilder<ButtonBuilder>();
-      newActionRow.addComponents(
-        button1.setDisabled(),
-        button2.setDisabled(),
-        button3.setDisabled(),
-      );
-      response.edit({
-        embeds: [embed],
-        components: [newActionRow],
-      });
-    })
-    .then(async (newInteraction) => {
-      if (newInteraction?.isButton()) {
-        embed.setColor(Color.RED);
-        embed.setTitle("House Shopping (expired)");
+			const newActionRow = new ActionRowBuilder<ButtonBuilder>();
+			newActionRow.addComponents(
+				button1.setDisabled(),
+				button2.setDisabled(),
+				button3.setDisabled(),
+			);
+			response.edit({
+				embeds: [embed],
+				components: [newActionRow],
+			});
+		})
+		.then(async (newInteraction) => {
+			if (newInteraction?.isButton()) {
+				embed.setColor(Color.RED);
+				embed.setTitle("House Shopping (expired)");
 
-        const newActionRow = new ActionRowBuilder<ButtonBuilder>();
-        newActionRow.addComponents(
-          button1.setDisabled(),
-          button2.setDisabled(),
-          button3.setDisabled(),
-        );
-        response.edit({
-          embeds: [embed],
-          components: [newActionRow],
-        });
+				const newActionRow = new ActionRowBuilder<ButtonBuilder>();
+				newActionRow.addComponents(
+					button1.setDisabled(),
+					button2.setDisabled(),
+					button3.setDisabled(),
+				);
+				response.edit({
+					embeds: [embed],
+					components: [newActionRow],
+				});
 
-        const selectedHouse = houses[stringToIntMap[newInteraction.customId]];
+				const selectedHouse = houses[stringToIntMap[newInteraction.customId]];
 
-        if (selectedHouse.value > (user?.balance || 0)) {
-          const poorEmbed = new EmbedBuilder()
-            .setColor(Color.BLUE)
-            .setTitle("Broke!")
-            .setDescription(
-              "Get your money up first. (You can't afford this house)",
-            );
+				if (selectedHouse.value > (user?.balance || 0)) {
+					const poorEmbed = new EmbedBuilder()
+						.setColor(Color.BLUE)
+						.setTitle("Broke!")
+						.setDescription(
+							"Get your money up first. (You can't afford this house)",
+						);
 
-          newInteraction.reply({
-            embeds: [poorEmbed],
-          });
-          return;
-        }
+					newInteraction.reply({
+						embeds: [poorEmbed],
+					});
+					return;
+				}
 
-        const newHouse = await db
-          .insert(housesTable)
-          .values({
-            location: selectedHouse.location,
-            quality: selectedHouse.quality,
-            squareFootage: selectedHouse.squareFootage,
-            furnitureScore: selectedHouse.furnitureScore,
-            ownerId: user.userId,
-          })
-          .returning();
+				const newHouse = await db
+					.insert(housesTable)
+					.values({
+						location: selectedHouse.location,
+						quality: selectedHouse.quality,
+						squareFootage: selectedHouse.squareFootage,
+						furnitureScore: selectedHouse.furnitureScore,
+						ownerId: user.userId,
+					})
+					.returning();
 
-        await db
-          .update(usersTable)
-          .set({
-            balance: increment(usersTable.balance, -selectedHouse.value),
-          })
-          .where(eq(usersTable.userId, user.userId));
+				await db
+					.update(usersTable)
+					.set({
+						balance: increment(usersTable.balance, -selectedHouse.value),
+					})
+					.where(eq(usersTable.userId, user.userId));
 
-        const congratsEmbed = new EmbedBuilder()
-          .setTitle("Congrats!")
-          .setColor(Color.BLUE)
-          .setDescription(
-            `You purchased a house, view your house info with \`/house info ${newHouse[0]?.id}\``,
-          );
+				const congratsEmbed = new EmbedBuilder()
+					.setTitle("Congrats!")
+					.setColor(Color.BLUE)
+					.setDescription(
+						`You purchased a house, view your house info with \`/house info ${newHouse[0]?.id}\``,
+					);
 
-        newInteraction.reply({
-          embeds: [congratsEmbed],
-        });
-      }
-    });
+				newInteraction.reply({
+					embeds: [congratsEmbed],
+				});
+			}
+		});
 };
