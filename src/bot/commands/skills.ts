@@ -3,13 +3,13 @@ import type { LifebotCommand } from "../types/commandTypes";
 import { getPersonalizedEmbed } from "../utils/personalizedEmbed";
 
 export const skills: LifebotCommand = {
-  command: new SlashCommandBuilder()
-    .setName("skills")
-    .setDescription("Check skill xp"),
-  handler: async ({ interaction, user, client }) => {
-    const skillsEmbed = getPersonalizedEmbed(interaction.user);
+	command: new SlashCommandBuilder()
+		.setName("skills")
+		.setDescription("Check skill xp"),
+	handler: async ({ interaction, user, client }) => {
+		const skillsEmbed = getPersonalizedEmbed(interaction.user);
 
-    skillsEmbed.setDescription(`
+		skillsEmbed.setDescription(`
 Technical Skills: ${user.technicalSkills}xp
 Creativity: ${user.creativity}xp
 Customer Service: ${user.customerService}xp
@@ -22,8 +22,8 @@ Criminality: ${user.criminality}xp
 Reputation: ${user.reputation}xp
 `);
 
-    interaction.reply({
-      embeds: [skillsEmbed],
-    });
-  },
+		interaction.reply({
+			embeds: [skillsEmbed],
+		});
+	},
 };

@@ -1,119 +1,119 @@
 import {
-  SlashCommandBuilder,
-  SlashCommandIntegerOption,
-  SlashCommandSubcommandBuilder,
+	SlashCommandBuilder,
+	SlashCommandIntegerOption,
+	SlashCommandSubcommandBuilder,
 } from "discord.js";
 import type {
-  LifebotCommand,
-  LifebotCommandHandler,
+	LifebotCommand,
+	LifebotCommandHandler,
 } from "../../types/commandTypes";
 import { buy } from "./house/buy";
+import { collect } from "./house/collect";
 import { info } from "./house/info";
-import { sell } from "./house/sell";
 import { lease } from "./house/lease";
 import { renovate } from "./house/renovate";
-import { collect } from "./house/collect";
+import { sell } from "./house/sell";
 
 const houseCommands: {
-  [key: string]: LifebotCommandHandler;
+	[key: string]: LifebotCommandHandler;
 } = {
-  buy,
-  info,
-  sell,
-  lease,
-  renovate,
-  collect,
+	buy,
+	info,
+	sell,
+	lease,
+	renovate,
+	collect,
 };
 
 export const house: LifebotCommand = {
-  command: new SlashCommandBuilder()
-    .setName("house")
-    .setDescription("Housing features")
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("buy")
-        .setDescription("buy a new house"),
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("sell")
-        .setDescription("Sell a house.")
-        .addIntegerOption(
-          new SlashCommandIntegerOption()
-            .setName("id")
-            .setDescription("A house id")
-            .setRequired(true),
-        ),
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("lease")
-        .setDescription("Find a tenant for a house")
-        .addIntegerOption(
-          new SlashCommandIntegerOption()
-            .setName("id")
-            .setDescription("A house id")
-            .setRequired(true),
-        ),
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("renovate")
-        .setDescription("Renovate a house to restore it's quality")
-        .addIntegerOption(
-          new SlashCommandIntegerOption()
-            .setName("id")
-            .setDescription("The id of the house.")
-            .setRequired(true),
-        ),
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("info")
-        .setDescription("View a houses info")
-        .addIntegerOption(
-          new SlashCommandIntegerOption()
-            .setName("id")
-            .setDescription("The id ofthe house.")
-            .setRequired(false),
-        ),
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("collect")
-        .setDescription("Collect rent from a house")
-        .addIntegerOption(
-          new SlashCommandIntegerOption()
-            .setName("id")
-            .setDescription("THe id of the house.")
-            .setRequired(false),
-        ),
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("furnish")
-        .setDescription("Place furniture in a house")
-        .addIntegerOption(
-          new SlashCommandIntegerOption()
-            .setName("house")
-            .setDescription("The id of the house.")
-            .setRequired(true),
-        )
-        .addIntegerOption(
-          new SlashCommandIntegerOption()
-            .setName("furniture")
-            .setDescription("The furniture's id")
-            .setRequired(true),
-        ),
-    ),
-  handler: async (props) => {
-    const { interaction } = props;
-    const subCommand = interaction.options.getSubcommand(true);
+	command: new SlashCommandBuilder()
+		.setName("house")
+		.setDescription("Housing features")
+		.addSubcommand(
+			new SlashCommandSubcommandBuilder()
+				.setName("buy")
+				.setDescription("buy a new house"),
+		)
+		.addSubcommand(
+			new SlashCommandSubcommandBuilder()
+				.setName("sell")
+				.setDescription("Sell a house.")
+				.addIntegerOption(
+					new SlashCommandIntegerOption()
+						.setName("id")
+						.setDescription("A house id")
+						.setRequired(true),
+				),
+		)
+		.addSubcommand(
+			new SlashCommandSubcommandBuilder()
+				.setName("lease")
+				.setDescription("Find a tenant for a house")
+				.addIntegerOption(
+					new SlashCommandIntegerOption()
+						.setName("id")
+						.setDescription("A house id")
+						.setRequired(true),
+				),
+		)
+		.addSubcommand(
+			new SlashCommandSubcommandBuilder()
+				.setName("renovate")
+				.setDescription("Renovate a house to restore it's quality")
+				.addIntegerOption(
+					new SlashCommandIntegerOption()
+						.setName("id")
+						.setDescription("The id of the house.")
+						.setRequired(true),
+				),
+		)
+		.addSubcommand(
+			new SlashCommandSubcommandBuilder()
+				.setName("info")
+				.setDescription("View a houses info")
+				.addIntegerOption(
+					new SlashCommandIntegerOption()
+						.setName("id")
+						.setDescription("The id ofthe house.")
+						.setRequired(false),
+				),
+		)
+		.addSubcommand(
+			new SlashCommandSubcommandBuilder()
+				.setName("collect")
+				.setDescription("Collect rent from a house")
+				.addIntegerOption(
+					new SlashCommandIntegerOption()
+						.setName("id")
+						.setDescription("THe id of the house.")
+						.setRequired(false),
+				),
+		)
+		.addSubcommand(
+			new SlashCommandSubcommandBuilder()
+				.setName("furnish")
+				.setDescription("Place furniture in a house")
+				.addIntegerOption(
+					new SlashCommandIntegerOption()
+						.setName("house")
+						.setDescription("The id of the house.")
+						.setRequired(true),
+				)
+				.addIntegerOption(
+					new SlashCommandIntegerOption()
+						.setName("furniture")
+						.setDescription("The furniture's id")
+						.setRequired(true),
+				),
+		),
+	handler: async (props) => {
+		const { interaction } = props;
+		const subCommand = interaction.options.getSubcommand(true);
 
-    try {
-      houseCommands[subCommand](props);
-    } catch (e) {
-      interaction.reply("Error");
-    }
-  },
+		try {
+			houseCommands[subCommand](props);
+		} catch (e) {
+			interaction.reply("Error");
+		}
+	},
 };
