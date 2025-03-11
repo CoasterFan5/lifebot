@@ -80,12 +80,12 @@ export const renovate: LifebotCommandHandler = async ({
       .setCustomId("confirm"),
   );
 
-  const interactionRespose = await interaction.reply({
+  const interactionResponse = await interaction.reply({
     embeds: [confirmEmbed],
     components: [confirmButton],
   });
 
-  interactionRespose
+  interactionResponse
     .awaitMessageComponent({
       componentType: ComponentType.Button,
       filter: (i) => i.user.id === user.userId,
@@ -128,7 +128,7 @@ export const renovate: LifebotCommandHandler = async ({
               .setDisabled(true),
           );
 
-        interactionRespose.edit({
+        interactionResponse.edit({
           embeds: [confirmEmbed.setTitle("Expired").setColor(Color.RED)],
           components: [newConfirmButton],
         });

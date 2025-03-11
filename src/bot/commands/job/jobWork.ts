@@ -86,7 +86,7 @@ export const jobWork: LifebotCommandHandler = async ({
   }
 
   // Anti-bot code
-  const checkAntiBot = Math.random() < 1 / 15;
+  const checkAntiBot = Math.random() < 1 / 30;
 
   if (!checkAntiBot) {
     //just reply with what we have
