@@ -114,7 +114,7 @@ process.on("uncaughtException", async (err, origin) => {
   if (chan?.isSendable()) {
     chan.send(
       [
-        "Lifebot just thew a critical error. This log signifies a crash was prevented.",
+        "Lifebot just threw a critical error. This log signifies a crash was prevented.",
         `Origin: \`${origin}\``,
         `Error: \`${err}\``,
         `Stack: \`\`\`${err.stack}\`\`\``,
