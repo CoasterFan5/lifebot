@@ -87,5 +87,14 @@ export const sell: LifebotCommandHandler = async ({ interaction, user }) => {
         });
       }
     })
-    .catch((e) => {});
+    .catch((e) => {
+      try {
+        reply.edit({
+          embeds: [confirmEmbed.setTitle("EXPIRED")],
+          components: [],
+        });
+      } catch (er) {
+        console.error(er);
+      }
+    });
 };
