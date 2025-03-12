@@ -32,12 +32,15 @@ export const reclaim: LifebotCommandHandler = async ({ interaction, user }) => {
   const furnitureItem = furnitureList[0] as FurnitureItem;
 
   if (furnitureList[0].houseId) {
-    await db.update(housesTable).set({
-      furnitureScore: increment(
-        housesTable.furnitureScore,
-        calculateFurnitureScore(furnitureItem),
-      ),
-    });
+    await db
+      .update(housesTable)
+      .set({
+        furnitureScore: increment(
+          housesTable.furnitureScore,
+          -calculateFurnitureScore(furnitureItem),
+        ),
+      })
+      .where(eq(housesTable.id, furnitureList[0].houseId));
 
     await db
       .update(furnitureTable)

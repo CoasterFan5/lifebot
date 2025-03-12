@@ -54,20 +54,24 @@ export const info: LifebotCommandHandler = async ({ interaction, user }) => {
   for (const f of furnitureItems) {
     const score = calculateFurnitureScore(f as FurnitureItem);
 
-    embedList.push(
-      new EmbedBuilder()
-        .setTitle(`${f.material} ${f.type}`)
-        .setDescription(
-          [
-            `Id: \`${f.id}\``,
-            `Condition: ${f.condition}%`,
-            `Age: ${f.age} years ${f.antique ? "(antique)" : ""}`,
-            `Score: ${score.toFixed(2)}`,
-            `Furniture Value: $${nFormat(calculateFurniturePrice(score, f.originalValue))}`,
-          ].join("\n"),
-        )
-        .setColor(Color.BLUE),
-    );
+    const itemEmbed = new EmbedBuilder()
+      .setTitle(`${f.material} ${f.type}`)
+      .setColor(Color.BLUE);
+
+    const bodyArray = [
+      `Id: \`${f.id}\``,
+      `Condition: ${f.condition}%`,
+      `Age: ${f.age} years ${f.antique ? "(antique)" : ""}`,
+      `Score: ${score.toFixed(2)}`,
+      `Furniture Value: $${nFormat(calculateFurniturePrice(score, f.originalValue))}`,
+    ];
+
+    if (f.houseId) {
+      bodyArray.push(`Assigned to house ${f.houseId}`);
+      itemEmbed.setColor(Color.GRAY);
+    }
+
+    embedList.push(itemEmbed.setDescription(bodyArray.join("\n")));
   }
 
   interaction.reply({

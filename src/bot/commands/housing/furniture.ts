@@ -43,7 +43,7 @@ export const furniture: LifebotCommand = {
     )
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
-        .setName("recliam")
+        .setName("reclaim")
         .setDescription("Remove a piece of furniture from a house")
         .addIntegerOption(
           new SlashCommandIntegerOption()

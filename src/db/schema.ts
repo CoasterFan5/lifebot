@@ -1,6 +1,7 @@
 import {
   boolean,
   decimal,
+  doublePrecision,
   integer,
   pgEnum,
   pgTable,
@@ -65,7 +66,7 @@ export const housesTable = pgTable("houses", {
   location: integer().notNull(),
   quality: integer().notNull(),
   squareFootage: integer().notNull(),
-  furnitureScore: integer().notNull(),
+  furnitureScore: doublePrecision().notNull(),
   leased: boolean().notNull().default(false),
   lastRentCollection: timestamp(),
   rentPrice: integer().notNull().default(0),
