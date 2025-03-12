@@ -30,6 +30,11 @@ const embeds: {
 				value: "This bot has jobs, housing, furniture, and more to come!",
 			},
 			{
+				name: "Help Info",
+				value:
+					"All help menus feature a command list. Optional arguments are in (), and required arguments are in <>",
+			},
+			{
 				name: "All Basic Commands",
 				value: [
 					"`/work` - Work a gig",
@@ -42,7 +47,7 @@ const embeds: {
 					"`/support` - View support server info",
 					"`/source` - View bot source code on Github",
 					"`/invite` - Invite the bot to your own discord",
-					"`/help (basic, housing, jobs, furniture)` - Show help menus",
+					"`/help <basic, housing, jobs, furniture>` - Show help menus",
 				].join("\n"),
 			},
 		),
@@ -99,19 +104,55 @@ const embeds: {
 				value: "Sell your humble abode with `/house sell <id>`",
 			},
 			{
+				name: "Furniture",
+				value:
+					"To increase a houses value even more, you can add furniture! (See `/help furniture`) Adding furniture increases the furniture score. Note, this score caps at 100/100.",
+			},
+			{
 				name: "All Commands:",
 				value: [
 					"`/house buy` - Purchase a new house",
-					"`/house info` - View info about a house",
+					"`/house info (id)` - View info about a house",
 					"`/house lease` - Lease a house",
 					"`/house sell <id>` - Bye bye house, hello money!",
 					"`/house collect` - Collect rent from leased homes, once an hour",
 					"`/house renovate <id>` - Increase the quality of a house, for a price",
-					"`/house furnish <house id> <furniture id>` - Add furniture",
+					"`/house furnish <house id> <furniture id>` - Add furniture.",
 				].join("\n"),
 			},
 		),
-	furniture: new EmbedBuilder(),
+	furniture: new EmbedBuilder()
+		.setTitle("Furniture help")
+		.setColor(Color.BLUE)
+		.setDescription(
+			"Increase house value with a wide variety of furniture items!",
+		)
+		.addFields(
+			{
+				name: "Getting started",
+				value:
+					"Get started with `/furniture buy` to pay a random price for a random piece of furniture!. Each item has a random material and type.",
+			},
+			{
+				name: "Materials",
+				value:
+					"All furniture has a random material assigned, which factors into it's value and score. They range from plastic to teakwood.",
+			},
+			{
+				name: "Score and Sell Value",
+				value:
+					"All furniture is given a score and sell value. Furniture can be added to homes to increase the homes furniture score by the score amount, or sold for the sell price with `/furniture sell`.",
+			},
+			{
+				name: "All Commands",
+				value: [
+					"`/furniture buy` - Purchase a new piece of furniture",
+					"`/house info (id) (page)` - View info about furniture",
+					"`/house sell <id>` - Bye bye furniture, hello money!",
+					"`/house reclaim <id>` - Remove a piece of furniture from a house.",
+				].join("\n"),
+			},
+		),
 };
 
 export const help: LifebotCommand = {
