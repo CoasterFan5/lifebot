@@ -10,6 +10,7 @@ import type {
 import { buy } from "./furniture/buy";
 import { info } from "./furniture/info";
 import { sell } from "./furniture/sell";
+import { reclaim } from "./furniture/reclaim";
 
 const subCommandHandlers: {
   [key: string]: LifebotCommandHandler;
@@ -17,6 +18,7 @@ const subCommandHandlers: {
   buy,
   info,
   sell,
+  reclaim,
 };
 
 export const furniture: LifebotCommand = {
@@ -32,6 +34,17 @@ export const furniture: LifebotCommand = {
       new SlashCommandSubcommandBuilder()
         .setName("sell")
         .setDescription("Sell a piece of furniture")
+        .addIntegerOption(
+          new SlashCommandIntegerOption()
+            .setName("id")
+            .setDescription("Id of the furniture")
+            .setRequired(true),
+        ),
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("recliam")
+        .setDescription("Remove a piece of furniture from a house")
         .addIntegerOption(
           new SlashCommandIntegerOption()
             .setName("id")
