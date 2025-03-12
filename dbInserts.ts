@@ -39,4 +39,4 @@ const petData = Array.from({ length: 200 }, (_, id) => ({
 export async function seedPets() {
   await db.insert(petsTable).values(petData).execute();
 }
-seedPets().then(() => console.log("Seeded pets table"));
+seedPets().then(() => console.info("Seeded pets table"));
