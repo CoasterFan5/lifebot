@@ -39,12 +39,12 @@ export const inventory: LifebotCommand = {
     let embed: EmbedBuilder;
     if (items.length === 0) {
       embed = new EmbedBuilder()
-        .setTitle("Your Invintory")
+        .setTitle("Your Inventory")
         .setColor(Color.RED)
         .setDescription("You don't have any items. :(");
     } else {
       embed = new EmbedBuilder()
-        .setTitle("Your Invintory")
+        .setTitle("Your Inventory")
         .setColor(Color.GREEN)
         .setDescription("Here are your items: \n")
         .addFields(
