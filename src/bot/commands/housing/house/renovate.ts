@@ -133,7 +133,7 @@ export const renovate: LifebotCommandHandler = async ({
           components: [newConfirmButton],
         });
       } catch (e) {
-        console.error("Could not edit response in house renovate.");
+        console.error("Could not edit response in house renovate.", e);
       }
     });
 };

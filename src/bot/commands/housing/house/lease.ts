@@ -108,7 +108,7 @@ export const lease: LifebotCommandHandler = async ({ interaction, user }) => {
             leased: true,
             rentPrice: possibleTenant.rentPayment,
             tenantScore: possibleTenant.score,
-            tenanteWealth: possibleTenant.wealth,
+            tenantWealth: possibleTenant.wealth,
           })
           .where(eq(housesTable.id, house.id));
 

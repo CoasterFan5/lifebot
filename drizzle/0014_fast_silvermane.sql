@@ -1,0 +1,1 @@
+ALTER TABLE "houses" RENAME COLUMN "tenanteWealth" TO "tenantWealth";
