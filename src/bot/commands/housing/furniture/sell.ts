@@ -101,6 +101,17 @@ export const sell: LifebotCommandHandler = async ({ interaction, user }) => {
 						.delete(furnitureTable)
 						.where(eq(furnitureTable.id, furnitureItem[0].id));
 				});
+
+				const soldEmbed = new EmbedBuilder()
+					.setTitle("Item Sold!")
+					.setDescription(
+						`Sold a ${realFurnitureItem.material} ${realFurnitureItem.type} for $${nFormat(sellValue)}`,
+					)
+					.setColor(Color.BLUE);
+
+				await newI.reply({
+					embeds: [soldEmbed],
+				});
 			} catch (e) {
 				console.error(e);
 
@@ -116,17 +127,6 @@ export const sell: LifebotCommandHandler = async ({ interaction, user }) => {
 					],
 				});
 			}
-
-			const soldEmbed = new EmbedBuilder()
-				.setTitle("Item Sold!")
-				.setDescription(
-					`Sold a ${realFurnitureItem.material} ${realFurnitureItem.type} for $${nFormat(sellValue)}`,
-				)
-				.setColor(Color.BLUE);
-
-			await newI.reply({
-				embeds: [soldEmbed],
-			});
 		})
 		.catch(async () => {
 			try {
