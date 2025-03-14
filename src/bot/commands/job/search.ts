@@ -38,11 +38,11 @@ const alreadyHaveJob = new EmbedBuilder()
 	)
 	.setColor(Color.RED);
 
-export const search: LifebotCommandHandler = async (
+export const search: LifebotCommandHandler = async ({
 	interaction,
 	user,
 	client,
-) => {
+}) => {
 	// generate 3 random jobs
 
 	if (user.hasJob) {
@@ -123,7 +123,6 @@ export const search: LifebotCommandHandler = async (
 			})
 			.then(async (newInteraction) => {
 				if (!newInteraction || !newInteraction.isButton()) {
-					console.log("Exiting Early");
 					return;
 				}
 

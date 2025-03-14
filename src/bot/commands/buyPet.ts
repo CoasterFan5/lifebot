@@ -19,7 +19,7 @@ export const buypet: LifebotCommand = {
 				.setDescription("The ID of the pet to buy")
 				.setRequired(true),
 		),
-	handler: async (interaction, user) => {
+	handler: async ({ interaction, user }) => {
 		const requestedPetId = interaction.options.getNumber("petid", true);
 
 		const [pet] = await db
@@ -48,7 +48,6 @@ export const buypet: LifebotCommand = {
 		const userBalace = user.balance || 0;
 		const petPrice = pet ? Math.ceil(Number(pet.price)) : 0;
 
-		console.log(userBalace, petPrice);
 		if (userBalace < petPrice) {
 			const embed = new EmbedBuilder()
 				.setColor(Color.RED)

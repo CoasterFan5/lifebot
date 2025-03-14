@@ -6,7 +6,7 @@ export const source: LifebotCommand = {
 	command: new SlashCommandBuilder()
 		.setName("source")
 		.setDescription("View the bot's source code"),
-	handler: async (interaction) => {
+	handler: async ({ interaction }) => {
 		const embed = new EmbedBuilder();
 		embed.setTitle("Source Code");
 		embed.setDescription(

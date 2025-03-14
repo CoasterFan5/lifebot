@@ -32,13 +32,12 @@ export const job: LifebotCommand = {
 				.setName("quit")
 				.setDescription("Quit your current job"),
 		),
-	handler: async (interaction, user, client) => {
+	handler: async ({ interaction, user, client }) => {
 		const subCommand = interaction.options.getSubcommand(true);
-		console.log(subCommand);
 
 		// handle sub command
 		try {
-			subCommandHandlers[subCommand](interaction, user, client);
+			subCommandHandlers[subCommand]({ interaction, user, client });
 		} catch (e) {}
 	},
 };

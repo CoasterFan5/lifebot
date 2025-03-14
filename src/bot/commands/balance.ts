@@ -20,7 +20,7 @@ export const balance: LifebotCommand = {
 				.setDescription("Check the balance of another users")
 				.setRequired(false),
 		),
-	handler: async (interaction, user) => {
+	handler: async ({ interaction, user }) => {
 		const isNotAuthor = interaction.options.getUser("user", false) != null;
 
 		const realUser =

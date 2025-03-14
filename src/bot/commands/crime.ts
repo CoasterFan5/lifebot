@@ -13,7 +13,7 @@ export const crime: LifebotCommand = {
 	command: new SlashCommandBuilder()
 		.setName("crime")
 		.setDescription("Do crime. What could go wrong?"),
-	handler: async (interaction, user) => {
+	handler: async ({ interaction, user }) => {
 		const msSinceLastCrime = Date.now() - (user.lastCrime?.getTime() || 0);
 		if (msSinceLastCrime < COOLDOWN) {
 			const timeLeft = Math.ceil((COOLDOWN - msSinceLastCrime) / 1000);

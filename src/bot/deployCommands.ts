@@ -24,7 +24,7 @@ if (process.env.DEPLOY_TO_GUILD) {
 				body: items,
 			},
 		);
-		console.log("Deployed");
+		console.info("Deployed");
 	} catch (e) {
 		console.error("failed to deploy commands");
 	}
@@ -33,7 +33,7 @@ if (process.env.DEPLOY_TO_GUILD) {
 		await rest.put(Routes.applicationCommands(process.env.APP_ID), {
 			body: items,
 		});
-		console.log("Deployed globally");
+		console.info("Deployed globally");
 	} catch (e) {
 		console.error(e);
 	}

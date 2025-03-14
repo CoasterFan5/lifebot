@@ -81,7 +81,7 @@ client.on("interactionCreate", async (interaction) => {
 
 			const user = userSelectResult[0];
 
-			commands[interaction.commandName].handler(interaction, user, client);
+			commands[interaction.commandName].handler({ interaction, user, client });
 		} catch (e) {
 			console.error(e);
 			interaction.reply("Something went wrong...");
@@ -99,3 +99,26 @@ client.on(Events.ClientReady, (e) => {
 
 client.login(token);
 console.info("Bot started");
+
+process.on("uncaughtException", async (err, origin) => {
+	if (!client.isReady()) {
+		console.error(
+			"Client not ready when critical error occurred.",
+			origin,
+			err,
+		);
+		return;
+	}
+
+	const chan = await client.channels.fetch("1336093534880665684");
+	if (chan?.isSendable()) {
+		chan.send(
+			[
+				"Lifebot just threw a critical error. This log signifies a crash was prevented.",
+				`Origin: \`${origin}\``,
+				`Error: \`${err}\``,
+				`Stack: \`\`\`${err.stack}\`\`\``,
+			].join("\n"),
+		);
+	}
+});

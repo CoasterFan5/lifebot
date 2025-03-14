@@ -1,0 +1,1 @@
+ALTER TABLE "houses" ALTER COLUMN "furnitureScore" SET DATA TYPE double precision;

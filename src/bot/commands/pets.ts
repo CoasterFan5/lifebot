@@ -9,7 +9,7 @@ export const pets: LifebotCommand = {
 	command: new SlashCommandBuilder()
 		.setName("pets")
 		.setDescription("View and care for your pets!"),
-	handler: async (interaction) => {
+	handler: async ({ interaction }) => {
 		const pets = await db
 			.select({
 				petId: userPetsTable.petId,
@@ -27,7 +27,6 @@ export const pets: LifebotCommand = {
 			.where(eq(userPetsTable.userId, interaction.user.id))
 			.limit(20)
 			.execute();
-		console.log(pets);
 		let embed: EmbedBuilder;
 		if (pets.length === 0) {
 			embed = new EmbedBuilder()

@@ -6,7 +6,7 @@ export const skills: LifebotCommand = {
 	command: new SlashCommandBuilder()
 		.setName("skills")
 		.setDescription("Check skill xp"),
-	handler: async (interaction, user, client) => {
+	handler: async ({ interaction, user, client }) => {
 		const skillsEmbed = getPersonalizedEmbed(interaction.user);
 
 		skillsEmbed.setDescription(`

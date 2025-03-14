@@ -19,7 +19,7 @@ export const inventory: LifebotCommand = {
 				.setDescription("The page number of your inventory")
 				.setRequired(false),
 		),
-	handler: async (interaction, user) => {
+	handler: async ({ interaction, user }) => {
 		const page = interaction.options.getNumber("page") || 0;
 
 		const items = await db
@@ -36,16 +36,15 @@ export const inventory: LifebotCommand = {
 			.limit(20)
 			.offset(page * 20)
 			.execute();
-		console.log(items);
 		let embed: EmbedBuilder;
 		if (items.length === 0) {
 			embed = new EmbedBuilder()
-				.setTitle("Your Invintory")
+				.setTitle("Your Inventory")
 				.setColor(Color.RED)
 				.setDescription("You don't have any items. :(");
 		} else {
 			embed = new EmbedBuilder()
-				.setTitle("Your Invintory")
+				.setTitle("Your Inventory")
 				.setColor(Color.GREEN)
 				.setDescription("Here are your items: \n")
 				.addFields(

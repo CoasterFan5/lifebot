@@ -11,7 +11,7 @@ export const invite: LifebotCommand = {
 	command: new SlashCommandBuilder()
 		.setName("invite")
 		.setDescription("Invite this bot to a different server!"),
-	handler: async (interaction, user, client) => {
+	handler: async ({ interaction, user, client }) => {
 		const serverCount = client.guilds.cache.size;
 
 		interaction.reply({

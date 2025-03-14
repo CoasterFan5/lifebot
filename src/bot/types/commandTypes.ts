@@ -10,11 +10,15 @@ import {
 
 import type { usersTable } from "../../db/schema";
 
+type LifebotCommandProps = {
+	interaction: ChatInputCommandInteraction<CacheType>;
+	user: typeof usersTable.$inferSelect;
+	client: Client<boolean>;
+};
+
 export type LifebotCommandHandler = (
-	interaction: ChatInputCommandInteraction<CacheType>,
-	user: typeof usersTable.$inferSelect,
-	client: Client<boolean>,
-) => Promise<void>;
+	props: LifebotCommandProps,
+) => Promise<unknown>;
 
 export type LifebotCommand = {
 	command: SharedSlashCommand;

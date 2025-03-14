@@ -14,7 +14,7 @@ export const petstore: LifebotCommand = {
 	command: new SlashCommandBuilder()
 		.setName("petstore")
 		.setDescription("View the pet store"),
-	handler: async (interaction) => {
+	handler: async ({ interaction }) => {
 		const results = await db
 			.select({
 				id: petsTable.id,

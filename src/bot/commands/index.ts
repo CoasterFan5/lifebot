@@ -2,6 +2,9 @@ import type { LifebotCommand } from "../types/commandTypes";
 import { balance } from "./balance";
 import { buypet } from "./buyPet";
 import { crime } from "./crime";
+import { help } from "./help/help";
+import { furniture } from "./housing/furniture";
+import { house } from "./housing/house";
 import { invite } from "./invite";
 import { job } from "./job/job";
 import { pay } from "./pay";
@@ -28,4 +31,7 @@ export const commands: {
 	job,
 	skills,
 	support,
+	house,
+	help,
+	furniture,
 };

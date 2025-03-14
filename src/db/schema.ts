@@ -1,8 +1,10 @@
 import {
 	boolean,
 	decimal,
+	doublePrecision,
 	integer,
 	pgTable,
+	serial,
 	timestamp,
 	varchar,
 } from "drizzle-orm/pg-core";
@@ -55,6 +57,32 @@ export const userPetsTable = pgTable("user_pets", {
 	id: integer().notNull().unique(),
 	userId: varchar({ length: 256 }).notNull(),
 	petId: integer().notNull(),
+});
+
+export const housesTable = pgTable("houses", {
+	id: serial("id").unique().primaryKey(),
+	ownerId: varchar({ length: 256 }).notNull(),
+	location: integer().notNull(),
+	quality: integer().notNull(),
+	squareFootage: integer().notNull(),
+	furnitureScore: doublePrecision().notNull(),
+	leased: boolean().notNull().default(false),
+	lastRentCollection: timestamp(),
+	rentPrice: integer().notNull().default(0),
+	tenantScore: integer().notNull().default(0), // 0-100, affects the level of damage tenant does on every collect.
+	tenantWealth: integer().notNull().default(0), // When this reaches 0, tenant will move out
+});
+
+export const furnitureTable = pgTable("furniture", {
+	id: serial("id").unique().primaryKey(),
+	ownerId: varchar({ length: 256 }).notNull(),
+	originalValue: integer().notNull(),
+	type: varchar({ length: 256 }).notNull(),
+	condition: integer().notNull(),
+	material: varchar({ length: 256 }).notNull(),
+	antique: boolean().notNull(),
+	age: integer().notNull(),
+	houseId: integer(), // The id of the house the furniture is in
 });
 
 export const userItemsTable = pgTable("user_items", {

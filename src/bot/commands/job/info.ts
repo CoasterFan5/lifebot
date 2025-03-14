@@ -14,11 +14,11 @@ const noJobEmbed = new EmbedBuilder()
 		text: "Try /job search",
 	});
 
-export const info: LifebotCommandHandler = async (
+export const info: LifebotCommandHandler = async ({
 	interaction,
 	user,
 	client,
-) => {
+}) => {
 	if (!user.hasJob) {
 		interaction.reply({
 			embeds: [noJobEmbed],

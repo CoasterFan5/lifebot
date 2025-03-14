@@ -10,16 +10,17 @@ import { increment } from "../../../db/increment";
 import { usersTable } from "../../../db/schema";
 import type { LifebotCommandHandler } from "../../types/commandTypes";
 import { Color } from "../../utils/colors";
+import { nFormat } from "../../utils/nFormat";
 import { getPersonalizedEmbed } from "../../utils/personalizedEmbed";
 import { jobPaths } from "./jobList";
 import { checkForPromotion } from "./jobUtils/checkForPromotion";
-import { workMessages } from "./textBank/textBank";
+import { negativeWorkMessages, workMessages } from "./textBank/textBank";
 
-export const jobWork: LifebotCommandHandler = async (
+export const jobWork: LifebotCommandHandler = async ({
 	interaction,
 	user,
 	client,
-) => {
+}) => {
 	const userJobInfo = jobPaths[user.jobPath].tiers[user.jobTierIndex];
 
 	const min = userJobInfo.basePay;
@@ -27,10 +28,15 @@ export const jobWork: LifebotCommandHandler = async (
 
 	const thisPay = Math.floor(Math.random() * (max - min)) + min;
 
-	const message = workMessages[Math.floor(Math.random() * workMessages.length)];
+	const message =
+		thisPay > 0
+			? workMessages[Math.floor(Math.random() * workMessages.length)]
+			: negativeWorkMessages[
+					Math.floor(Math.random() * negativeWorkMessages.length)
+				];
 	const fullMessage = message
 		.replaceAll("{jobTitle}", user.jobName.toLowerCase())
-		.replaceAll("{amount}", thisPay.toString())
+		.replaceAll("{amount}", nFormat(Math.abs(thisPay)))
 		.replaceAll("{company}", user.jobCompany);
 
 	const xpGrants = userJobInfo.xpGrants;
@@ -86,7 +92,7 @@ export const jobWork: LifebotCommandHandler = async (
 	}
 
 	// Anti-bot code
-	const checkAntiBot = Math.random() < 1 / 15;
+	const checkAntiBot = Math.random() < 1 / 30;
 
 	if (!checkAntiBot) {
 		//just reply with what we have

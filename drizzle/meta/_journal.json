@@ -71,6 +71,41 @@
       "when": 1735067741831,
       "tag": "0009_same_boomer",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1738601560733,
+      "tag": "0010_dear_silver_sable",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1741710678801,
+      "tag": "0011_cuddly_nomad",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1741789787145,
+      "tag": "0012_unique_winter_soldier",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1741792173700,
+      "tag": "0013_left_sally_floyd",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1741795578454,
+      "tag": "0014_fast_silvermane",
+      "breakpoints": true
     }
   ]
 }

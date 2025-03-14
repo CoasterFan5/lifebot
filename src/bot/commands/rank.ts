@@ -18,7 +18,7 @@ export const rank: LifebotCommand = {
 				.setName("user")
 				.setDescription("See another user's rank"),
 		),
-	handler: async (interaction, user, client) => {
+	handler: async ({ interaction, user, client }) => {
 		const otherUser = interaction.options.getUser("user", false);
 		let userToCheck = user;
 

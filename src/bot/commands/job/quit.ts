@@ -53,11 +53,11 @@ const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
 		.setCustomId("ConfirmJobQuit"),
 );
 
-export const quit: LifebotCommandHandler = async (
+export const quit: LifebotCommandHandler = async ({
 	interaction,
 	user,
 	client,
-) => {
+}) => {
 	if (!user.hasJob) {
 		interaction.reply({
 			embeds: [noJobEmbed],

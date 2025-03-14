@@ -13,7 +13,7 @@ export const work: LifebotCommand = {
 	command: new SlashCommandBuilder()
 		.setName("work")
 		.setDescription("Do a job to earn money!"),
-	handler: async (interaction, user, client) => {
+	handler: async ({ interaction, user, client }) => {
 		const currentTime = Date.now();
 		const msSinceLastWork = currentTime - (user.lastWork?.getTime() || 0);
 		if (msSinceLastWork < WORK_COOLDOWN) {
@@ -31,7 +31,7 @@ export const work: LifebotCommand = {
 		}
 
 		if (user.hasJob) {
-			await jobWork(interaction, user, client);
+			await jobWork({ interaction, user, client });
 			return;
 		}
 

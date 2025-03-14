@@ -32,15 +32,13 @@ export const pay: LifebotCommand = {
 				.setDescription("The amount to pay")
 				.setRequired(true),
 		),
-	handler: async (interaction, user) => {
+	handler: async ({ interaction, user }) => {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}
 
 		const payAmount = interaction.options.getInteger("amount", true);
 		const otherDiscordUser = interaction.options.getUser("user", true);
-
-		console.log();
 
 		if (payAmount < 0) {
 			await db

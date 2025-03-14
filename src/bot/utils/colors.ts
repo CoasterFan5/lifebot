@@ -29,6 +29,5 @@ export const randomBritghtColor = (): Color => {
 		Color.PINK,
 	];
 	const color = colors[Math.floor(Math.random() * colors.length)];
-	console.log("returning color", color);
 	return color;
 };
