@@ -110,6 +110,8 @@ process.on("uncaughtException", async (err, origin) => {
 		return;
 	}
 
+	console.error(err);
+
 	const chan = await client.channels.fetch("1336093534880665684");
 	if (chan?.isSendable()) {
 		chan.send(
