@@ -24,9 +24,9 @@ const randomSquareFootage: () => number = () => {
 
 export const generateHouse = () => {
 	const houseData: BasicHouseData = {
-		location: Math.floor(Math.random() * 101),
+		location: Math.floor(Math.random() * 100) + 1,
 		squareFootage: randomSquareFootage(),
-		quality: Math.floor(Math.random() * 101),
+		quality: Math.floor(Math.random() * 100) + 1,
 		furnitureScore: 0,
 	};
 

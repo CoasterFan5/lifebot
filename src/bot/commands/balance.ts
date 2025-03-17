@@ -8,6 +8,7 @@ import { db } from "../../db";
 import { usersTable } from "../../db/schema";
 import type { LifebotCommand } from "../types/commandTypes";
 import { Color } from "../utils/colors";
+import { nFormat } from "../utils/nFormat";
 import { getPersonalizedEmbed } from "../utils/personalizedEmbed";
 
 export const balance: LifebotCommand = {
@@ -39,7 +40,7 @@ export const balance: LifebotCommand = {
 			}
 			embed.setDescription(`${realUser.displayName} has $${bal}`);
 		} else {
-			embed.setDescription(`You have $${user.balance}`);
+			embed.setDescription(`You have $${nFormat(user.balance || 0)}`);
 		}
 
 		interaction.reply({

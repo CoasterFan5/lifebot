@@ -11,7 +11,7 @@ import {
 
 export const usersTable = pgTable("users", {
 	userId: varchar({ length: 256 }).notNull().unique(),
-	balance: integer(),
+	balance: integer().notNull().default(0),
 	lastWork: timestamp(),
 	lastCrime: timestamp(),
 	// lastQuickEvent: timestamp(),

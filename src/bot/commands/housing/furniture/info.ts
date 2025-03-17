@@ -77,5 +77,6 @@ export const info: LifebotCommandHandler = async ({ interaction, user }) => {
 	interaction.reply({
 		content: `Page ${page + 1}/${totalPages}`,
 		embeds: embedList,
+		ephemeral: true,
 	});
 };

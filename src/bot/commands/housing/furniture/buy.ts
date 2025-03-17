@@ -78,6 +78,25 @@ export const buy: LifebotCommandHandler = async ({ interaction, user }) => {
 			filter: (i) => i.user.id === user.userId,
 		})
 		.then(async (newI) => {
+			const userCheck = await db
+				.select()
+				.from(usersTable)
+				.where(eq(usersTable.userId, user.userId));
+
+			if (userCheck.length < 1 || (userCheck[0].balance || 0) < purchasePrice) {
+				newI.reply({
+					embeds: [
+						new EmbedBuilder()
+							.setColor(Color.RED)
+							.setTitle("I smell poor people")
+							.setDescription(
+								`You can't afford this. You need $${nFormat(purchasePrice)} first.`,
+							),
+					],
+				});
+				return;
+			}
+
 			try {
 				await db
 					.update(usersTable)

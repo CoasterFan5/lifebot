@@ -91,8 +91,8 @@ client.on("interactionCreate", async (interaction) => {
 
 client.on(Events.ClientReady, (e) => {
 	client.user?.setActivity({
-		name: "Life",
-		type: ActivityType.Competing,
+		name: "New Housing Update",
+		type: ActivityType.Playing,
 	});
 	console.info("Bot started");
 });
@@ -109,6 +109,8 @@ process.on("uncaughtException", async (err, origin) => {
 		);
 		return;
 	}
+
+	console.error(err);
 
 	const chan = await client.channels.fetch("1336093534880665684");
 	if (chan?.isSendable()) {
