@@ -12,7 +12,6 @@ import { housesTable, usersTable } from "../../../../db/schema";
 import type { LifebotCommandHandler } from "../../../types/commandTypes";
 import { Color } from "../../../utils/colors";
 import { nFormat } from "../../../utils/nFormat";
-import { balance } from "../../balance";
 import { calculateHouseValue } from "./util/calculateHouseValue";
 import { noHouseFoundEmbed } from "./util/noHouseEmbed";
 
@@ -38,7 +37,14 @@ export const renovate: LifebotCommandHandler = async ({
 
 	// find the cost for the house
 	const house = houseList[0];
-	const renovationCost = calculateHouseValue(house);
+
+	// This looks weird, but it just ensures the quality is never calculated less than 0, making sure renovations arent free
+	const renovationCost = calculateHouseValue({
+		...house,
+		...{
+			quality: Math.max(house.quality, 1),
+		},
+	});
 	const newValue = calculateHouseValue(house, {
 		ignoreQuality: true,
 	});
