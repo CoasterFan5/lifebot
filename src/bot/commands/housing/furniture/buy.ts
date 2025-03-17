@@ -94,6 +94,7 @@ export const buy: LifebotCommandHandler = async ({ interaction, user }) => {
 							),
 					],
 				});
+				return;
 			}
 
 			try {
