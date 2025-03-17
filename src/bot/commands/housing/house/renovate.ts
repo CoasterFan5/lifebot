@@ -38,7 +38,7 @@ export const renovate: LifebotCommandHandler = async ({
 	// find the cost for the house
 	const house = houseList[0];
 
-	// This looks weird, but it just ensures the quality is never calculated less than 0, making sure renovations arent free
+	// This looks weird, but it just ensures the quality is never calculated less than 1, making sure renovations arent free
 	const renovationCost = calculateHouseValue({
 		...house,
 		...{
