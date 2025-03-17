@@ -61,7 +61,7 @@ const getHousesEmbedsWithPages = async ({
 			.offset((page - 1) * perPage);
 	}
 
-	if (houseId) {
+	if (houses.length === 0) {
 		return {
 			embedList: [
 				new EmbedBuilder()
