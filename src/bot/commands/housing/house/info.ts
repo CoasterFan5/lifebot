@@ -186,6 +186,13 @@ export const info: LifebotCommandHandler = async ({ interaction, user }) => {
 				infoMessage.edit(getMessage(housesMessageData));
 				newI.deferUpdate();
 				addListener();
+			})
+			.catch((e) => {
+				try {
+					infoMessage.delete();
+				} catch (e) {
+					console.warn(e);
+				}
 			});
 	};
 	addListener();
