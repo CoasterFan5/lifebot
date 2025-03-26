@@ -140,7 +140,7 @@ export const house: LifebotCommand = {
 		const subCommand = interaction.options.getSubcommand(true);
 
 		try {
-			houseCommands[subCommand](props);
+			await houseCommands[subCommand](props);
 		} catch (e) {
 			console.error(e);
 			interaction.reply("Error executing this command, try again later.");

@@ -34,7 +34,7 @@ export const furnish: LifebotCommandHandler = async ({ interaction, user }) => {
 	const houseId = interaction.options.getInteger("house", true);
 	const furnitureId = interaction.options.getInteger("furniture", true);
 
-	const houseListPromoise = db
+	const houseListPromise = db
 		.select()
 		.from(housesTable)
 		.where(
@@ -51,7 +51,7 @@ export const furnish: LifebotCommandHandler = async ({ interaction, user }) => {
 			),
 		);
 
-	const houseList = await houseListPromoise;
+	const houseList = await houseListPromise;
 	const furnitureList = await furnitureListPromise;
 
 	if (houseList.length < 1) {
@@ -89,12 +89,12 @@ export const furnish: LifebotCommandHandler = async ({ interaction, user }) => {
 
 	// now we can change the house furniture score
 
-	await fullFurnitureValueRecalc(house.id);
+	const newScore = await fullFurnitureValueRecalc(house.id);
 
 	const successEmbed = new EmbedBuilder()
 		.setTitle("Furniture Assigned")
 		.setDescription(
-			`You have added one ${furnitureItem.material} ${furnitureItem.type} to house ${houseId}`,
+			`You have added one ${furnitureItem.material} ${furnitureItem.type} to house ${houseId}\nNew furniture score: ${newScore.toFixed(2)}/100`,
 		)
 		.setColor(Color.BLUE);
 
