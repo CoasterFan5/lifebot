@@ -116,6 +116,7 @@ const embeds: {
 					"`/house collect` - Collect rent from leased homes, once an hour",
 					"`/house renovate <id>` - Increase the quality of a house, for a price",
 					"`/house furnish <house id> <furniture id>` - Add furniture.",
+					"`/house bulk_furnish <house id> <start id> <end id> - Add unassigned furniture with an id in the range from <start> to <end>.",
 				].join("\n"),
 			},
 		),
