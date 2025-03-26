@@ -14,6 +14,7 @@ import { info } from "./house/info";
 import { lease } from "./house/lease";
 import { renovate } from "./house/renovate";
 import { sell } from "./house/sell";
+import { bulkFurnish } from "./house/bulkFurnish";
 
 const houseCommands: {
 	[key: string]: LifebotCommandHandler;
@@ -25,6 +26,7 @@ const houseCommands: {
 	renovate,
 	collect,
 	furnish,
+	bulk_furnish: bulkFurnish,
 };
 
 export const house: LifebotCommand = {
@@ -105,6 +107,31 @@ export const house: LifebotCommand = {
 					new SlashCommandIntegerOption()
 						.setName("furniture")
 						.setDescription("The furniture's id")
+						.setRequired(true),
+				),
+		)
+		.addSubcommand(
+			new SlashCommandSubcommandBuilder()
+				.setName("bulk_furnish")
+				.setDescription(
+					"Place unassigned furniture you own with id from <start> to <end> in a house",
+				)
+				.addIntegerOption(
+					new SlashCommandIntegerOption()
+						.setName("house")
+						.setDescription("The id of the house")
+						.setRequired(true),
+				)
+				.addIntegerOption(
+					new SlashCommandIntegerOption()
+						.setName("start")
+						.setDescription("Add unassigned furniture from this id")
+						.setRequired(true),
+				)
+				.addIntegerOption(
+					new SlashCommandIntegerOption()
+						.setName("end")
+						.setDescription("Add unassigned furniture to this id")
 						.setRequired(true),
 				),
 		),

@@ -9,6 +9,7 @@ import {
 	type FurnitureItem,
 	calculateFurnitureScore,
 } from "../furniture/furnitureCalculations";
+import { fullFurnitureValueRecalc } from "./util/fullFurnitureRecalc";
 
 const noHouseEmbed = new EmbedBuilder()
 	.setTitle("No house")
@@ -87,22 +88,8 @@ export const furnish: LifebotCommandHandler = async ({ interaction, user }) => {
 		.where(eq(furnitureTable.id, furnitureItem.id));
 
 	// now we can change the house furniture score
-	// This is overly complex to deal with possible changes down the line. Rather than just increment the score, we perform a full recalculation
 
-	const allFurniture = await db
-		.select()
-		.from(furnitureTable)
-		.where(eq(furnitureTable.houseId, house.id));
-	let score = 0;
-	for (const item of allFurniture) {
-		score += calculateFurnitureScore(item as FurnitureItem);
-	}
-	await db
-		.update(housesTable)
-		.set({
-			furnitureScore: Math.min(100, score),
-		})
-		.where(eq(housesTable.id, house.id));
+	await fullFurnitureValueRecalc(house.id);
 
 	const successEmbed = new EmbedBuilder()
 		.setTitle("Furniture Assigned")
