@@ -7,6 +7,7 @@ import type {
 	LifebotCommand,
 	LifebotCommandHandler,
 } from "../../types/commandTypes";
+import { bulkFurnish } from "./house/bulkFurnish";
 import { buy } from "./house/buy";
 import { collect } from "./house/collect";
 import { furnish } from "./house/furnish";
@@ -25,6 +26,7 @@ const houseCommands: {
 	renovate,
 	collect,
 	furnish,
+	bulk_furnish: bulkFurnish,
 };
 
 export const house: LifebotCommand = {
@@ -107,13 +109,38 @@ export const house: LifebotCommand = {
 						.setDescription("The furniture's id")
 						.setRequired(true),
 				),
+		)
+		.addSubcommand(
+			new SlashCommandSubcommandBuilder()
+				.setName("bulk_furnish")
+				.setDescription(
+					"Place unassigned furniture you own with id from <start> to <end> in a house",
+				)
+				.addIntegerOption(
+					new SlashCommandIntegerOption()
+						.setName("house")
+						.setDescription("The id of the house")
+						.setRequired(true),
+				)
+				.addIntegerOption(
+					new SlashCommandIntegerOption()
+						.setName("start")
+						.setDescription("Add unassigned furniture from this id")
+						.setRequired(true),
+				)
+				.addIntegerOption(
+					new SlashCommandIntegerOption()
+						.setName("end")
+						.setDescription("Add unassigned furniture to this id")
+						.setRequired(true),
+				),
 		),
 	handler: async (props) => {
 		const { interaction } = props;
 		const subCommand = interaction.options.getSubcommand(true);
 
 		try {
-			houseCommands[subCommand](props);
+			await houseCommands[subCommand](props);
 		} catch (e) {
 			console.error(e);
 			interaction.reply("Error executing this command, try again later.");
