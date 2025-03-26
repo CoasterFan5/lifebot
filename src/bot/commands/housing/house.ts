@@ -7,6 +7,7 @@ import type {
 	LifebotCommand,
 	LifebotCommandHandler,
 } from "../../types/commandTypes";
+import { bulkFurnish } from "./house/bulkFurnish";
 import { buy } from "./house/buy";
 import { collect } from "./house/collect";
 import { furnish } from "./house/furnish";
@@ -14,7 +15,6 @@ import { info } from "./house/info";
 import { lease } from "./house/lease";
 import { renovate } from "./house/renovate";
 import { sell } from "./house/sell";
-import { bulkFurnish } from "./house/bulkFurnish";
 
 const houseCommands: {
 	[key: string]: LifebotCommandHandler;

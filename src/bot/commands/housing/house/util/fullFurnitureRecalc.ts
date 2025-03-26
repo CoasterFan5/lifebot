@@ -2,8 +2,8 @@ import { eq } from "drizzle-orm";
 import { db } from "../../../../../db";
 import { furnitureTable, housesTable } from "../../../../../db/schema";
 import {
-	calculateFurnitureScore,
 	type FurnitureItem,
+	calculateFurnitureScore,
 } from "../../furniture/furnitureCalculations";
 
 export const fullFurnitureValueRecalc = async (houseId: number) => {

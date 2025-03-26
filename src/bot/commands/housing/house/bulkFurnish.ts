@@ -1,16 +1,16 @@
-import { and, count, eq, gte, isNull, lte } from "drizzle-orm";
-import { db } from "../../../../db";
-import { furnitureTable, housesTable } from "../../../../db/schema";
-import type { LifebotCommandHandler } from "../../../types/commandTypes";
 import {
 	ActionRowBuilder,
 	ButtonBuilder,
 	ButtonStyle,
 	EmbedBuilder,
 } from "discord.js";
-import { noHouseFoundEmbed } from "./util/noHouseEmbed";
+import { and, count, eq, gte, isNull, lte } from "drizzle-orm";
+import { db } from "../../../../db";
+import { furnitureTable, housesTable } from "../../../../db/schema";
+import type { LifebotCommandHandler } from "../../../types/commandTypes";
 import { Color } from "../../../utils/colors";
 import { fullFurnitureValueRecalc } from "./util/fullFurnitureRecalc";
+import { noHouseFoundEmbed } from "./util/noHouseEmbed";
 
 export const bulkFurnish: LifebotCommandHandler = async ({
 	user,
