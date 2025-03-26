@@ -25,6 +25,7 @@ export const collect: LifebotCommandHandler = async ({ interaction, user }) => {
 		.where(
 			and(
 				eq(housesTable.ownerId, user.userId),
+				eq(housesTable.leased, true),
 				houseId ? eq(housesTable.id, houseId) : undefined,
 				or(
 					lt(housesTable.lastRentCollection, new Date(Date.now() - ONE_HOUR)),
