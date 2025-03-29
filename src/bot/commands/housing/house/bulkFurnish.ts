@@ -25,7 +25,7 @@ export const bulkFurnish: LifebotCommandHandler = async ({
 			embeds: [
 				new EmbedBuilder()
 					.setColor(Color.RED)
-					.setDescription("End id must not be greater than start id"),
+					.setDescription("End id must be greater than start id"),
 			],
 		});
 	}
