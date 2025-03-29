@@ -20,12 +20,12 @@ export const bulkFurnish: LifebotCommandHandler = async ({
 	const startId = interaction.options.getInteger("start", true);
 	const endId = interaction.options.getInteger("end", true);
 
-	if (endId > startId) {
+	if (endId < startId) {
 		return interaction.reply({
 			embeds: [
 				new EmbedBuilder()
 					.setColor(Color.RED)
-					.setDescription("End id must not be greater than start id"),
+					.setDescription("End id must be greater than start id"),
 			],
 		});
 	}
